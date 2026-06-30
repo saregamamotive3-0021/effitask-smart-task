@@ -1,0 +1,142 @@
+/* HERO SECTION */
+
+/* body {
+  background: linear-gradient(
+    135deg,
+    #eef2ff 0%,
+    #f8fafc 50%,
+    #ede9fe 100%
+  );
+} */
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 120px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* TITLE */
+
+.title {
+    max-width: 850px;
+}
+
+.title1 {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #111827;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+    font-family: "Poppins", sans-serif;
+}
+
+.title2 {
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #6b7280;
+    line-height: 1.7;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 40px;
+}
+
+/* BUTTON SECTION */
+
+.taskbox {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* PRIMARY BUTTON */
+
+.btn-title {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    color: white;
+    border: none;
+    padding: 15px 34px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 220px;
+    transition: all 0.35s ease;
+    /* box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25); */
+    font-family: "Poppins", sans-serif;
+}
+
+/* HOVER EFFECT */
+
+.btn-title:hover {
+    transform: translateY(-5px) scale(1.02);
+    background: linear-gradient(135deg, #0b5f58, #0f9f90);
+    /* box-shadow: 0 16px 30px rgba(79, 70, 229, 0.35); */
+}
+
+/* FEATURES */
+
+.hero-features {
+    margin-top: 55px;
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* FEATURE CARDS */
+
+.feature {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    padding: 16px 24px;
+    border-radius: 18px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #374151;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-family: "Poppins", sans-serif;
+}
+
+/* FEATURE HOVER */
+
+.feature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* RESPONSIVE DESIGN */
+
+@media screen and (max-width: 768px) {
+
+    .container {
+        margin-top: 80px;
+        padding: 20px;
+    }
+
+    .title1 {
+        font-size: 2.5rem;
+    }
+
+    .title2 {
+        font-size: 1rem;
+    }
+
+    .taskbox {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-title {
+        width: 100%;
+        max-width: 280px;
+    }
+}

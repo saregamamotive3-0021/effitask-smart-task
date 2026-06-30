@@ -1,0 +1,90 @@
+/* Analytics Section */
+.analytics-section {
+  padding: 20px 20px 40px;
+  min-height: auto;
+  /* background: #f8fafc; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Heading */
+.analytics-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Chart Card */
+.chart-card {
+  width: 100%;
+  max-width: 800px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Recharts Container */
+.recharts-responsive-container {
+  margin: 0 auto;
+}
+
+/* Tooltip */
+.recharts-tooltip-wrapper {
+  font-size: 14px;
+}
+
+/* Legend */
+.recharts-legend-wrapper {
+  padding-top: 15px;
+}
+
+/* Legend Text */
+.recharts-legend-item-text {
+  color: #111827 !important;
+  font-weight: 600;
+}
+
+/* Pie Labels */
+.recharts-pie-label-text {
+  fill: #111827;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .analytics-section {
+    padding: 25px 15px;
+  }
+
+  .analytics-heading {
+    font-size: 2rem;
+  }
+
+  .chart-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .analytics-heading {
+    font-size: 1.7rem;
+  }
+
+  .chart-card {
+    padding: 15px;
+  }
+}

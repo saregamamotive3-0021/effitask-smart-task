@@ -1,0 +1,232 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main Container */
+.Tasks-Form {
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Form Container */
+.top-input {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Form Card */
+.input-box {
+    width: 100%;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+/* Heading */
+.heading {
+    text-align: center;
+    font-size: 3rem;
+    color: #111827;
+    margin-bottom: 30px;
+}
+
+.sub-heading {
+    font-size: 1.8rem;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #475569;
+}
+
+/* Task Input */
+.input1 {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.input1:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15,118,110,.15);
+}
+
+/* DatePicker */
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.react-datepicker__input-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: .3s;
+    margin-bottom: 10px;
+}
+
+.react-datepicker__input-container input:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15,118,110,.15);
+}
+
+/* Add Task Button */
+.addTasks {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #0f766e;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.addTasks:hover {
+    background: #115e59;
+}
+
+.addTasks:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* Task List */
+.task-priority {
+    list-style: none;
+    margin-top: 25px;
+}
+
+/* Task Card */
+.task-priority li {
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    transition: .3s;
+}
+
+.task-priority li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+/* Task Header */
+.task-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.star{
+    margin-left:auto;
+}
+
+.task-header h3{
+    margin:0;
+}
+
+/* Dates */
+.startDate,
+.endDate {
+    color: #64748b;
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+/* Star */
+.star {
+    margin: 0;
+}
+
+.StarPriority {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 24px;
+    transition: transform .2s ease;
+}
+
+.StarPriority:hover {
+    transform: scale(1.2);
+}
+
+/* Buttons */
+.savetask,
+.cancelTask {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.savetask {
+    background: #0f766e;
+    color: white;
+    margin-right: 10px;
+}
+
+.savetask:hover {
+    background: #115e59;
+}
+
+.savetask:disabled {
+    background: #94a3b8;
+}
+
+.cancelTask {
+    background: #ef4444;
+    color: white;
+}
+
+.cancelTask:hover {
+    background: #dc2626;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .heading {
+        font-size: 2.2rem;
+    }
+
+    .sub-heading {
+        font-size: 1.5rem;
+    }
+
+    .task-header {
+        flex-direction: row;
+    }
+
+    .savetask,
+    .cancelTask {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

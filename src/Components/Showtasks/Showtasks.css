@@ -1,0 +1,313 @@
+/* Page */
+.showtasks {
+    padding: 20px;
+    /* background: #f9fafb; */
+    min-height: 100vh;
+}
+
+/* Heading */
+.header1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #111827;
+    font-size: 2.5rem;
+    font-family:
+        "Gill Sans",
+        "Gill Sans MT",
+        Calibri,
+        "Trebuchet MS",
+        sans-serif;
+}
+
+/* Search Input */
+.input2 {
+    display: block;
+    margin-left: auto;
+    margin-right: 20px;
+    margin-bottom: 25px;
+    width: 280px;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.input2:focus {
+    border-color: #0f766e;
+}
+
+/* Layout */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+/* Table */
+.tasks-table {
+    width: 70%;
+    border-collapse: collapse;
+    /* background: #ffffff; */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Table Header */
+.tasks-table thead {
+    background-color: #111827;
+}
+
+.tasks-table th {
+    color: #111827;
+    padding: 14px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 3px solid #0f766e;
+}
+
+/* Table Body */
+.tasks-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tasks-table td:nth-child(2),
+.tasks-table th:nth-child(2) {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.tasks-table tbody tr:hover {
+    background: #f3f4f6;
+}
+
+/* Edit Button */
+.Edit {
+    background-color: #0f766e;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.Edit:hover {
+    background: #0b5f59;
+}
+
+/* Delete Button */
+.delete2 {
+    background-color: #9f1239;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.delete2:hover {
+    background: #7f0d2d;
+}
+
+/* Checkbox */
+.CheckBox {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Completed Tick */
+.tick {
+    color: #16a34a;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+/* Chart Card */
+.chart-container {
+    width: 30%;
+    min-width: 340px; 
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.chart-container h3 {
+    text-align: center;
+    color: #111827;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal */
+.modal {
+    width: 500px;
+    min-height: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading */
+.EditTask {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+/* Text Input */
+.input_edit {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+/* Date Picker */
+.date-group {
+    margin-bottom: 20px;
+}
+
+.date-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.date-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Buttons */
+.modal button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.modal button:first-of-type {
+    background: #0f766e;
+    color: white;
+}
+
+.Modal {
+    background: #6b7280;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .tasks-table,
+    .chart-container {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .input2 {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Reminder Section */
+
+.reminder-container {
+    margin: 30px auto;
+    width: 95%;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.reminder-container h2 {
+    margin-bottom: 15px;
+    color: #1f2937;
+}
+
+.reminder-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    /* border-left: 6px solid #2563eb; */
+    border-radius: 8px;
+}
+
+.reminder-card strong {
+    color: #111827;
+}
+
+.no-reminder {
+    color: gray;
+    text-align: center;
+}
+
+.today {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.tomorrow {
+    color: #ea580c;
+    font-weight: bold;
+}
+
+.twodays {
+    color: #ca8a04;
+    font-weight: bold;
+}
+
+.fivedays {
+    color: #15803d;
+    font-weight: bold;
+}
+
+@media (max-width:768px) {
+    .reminder-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
