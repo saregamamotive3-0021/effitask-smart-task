@@ -9,16 +9,15 @@ app.use(cors());
 app.use(express.json());
 
 const connection = mysql.createConnection({
-    host: "mysql-363a54f1-effitask.l.aivencloud.com",
-    user: "avnadmin",
-    password: "AVNS_899PbVSoMb--Or4bQY-",
-    database: "defaultdb",
-    port: 12679,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
     ssl: {
         ca: fs.readFileSync("./ca.pem"),
     },
 });
-
 
 connection.connect((err) => {
     if (err) {
@@ -316,8 +315,17 @@ app.put("/updateTask/:id", (req, res) => {
     );
 });
 
-const PORT = process.env.PORT || 5000;
+connection.connect((err) => {
+    if (err) {
+        console.error(" Database connection failed:", err);
+        process.exit(1);
+    }
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log("Connected to MySQL database successfully!");
+
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
 });
