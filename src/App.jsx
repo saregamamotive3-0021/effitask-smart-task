@@ -26,7 +26,7 @@ function App() {
                         <>
                             <Navbar />
                             <Hero />
-                            <About title="Manage Tasks With Task Pro" />
+                            <About title="Manage Tasks With EffiTask" />
                             <Dailystreak />
                             <Banner />
                             <Subscrip />
