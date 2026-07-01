@@ -25,14 +25,21 @@ const ShowTasks = () => {
         setSearch(searchItem);
     };
 
-    const openEditModal = (task) => {
-        setEditTask({
-            ...task,
-            start_date: task.start_date ? new Date(task.start_date) : null,
-            end_date: task.end_date ? new Date(task.end_date) : null,
-        });
-        setModal(true);
+const openEditModal = (task) => {
+    const fixDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     };
+
+    setEditTask({
+        ...task,
+        start_date: fixDate(task.start_date),
+        end_date: fixDate(task.end_date),
+    });
+
+    setModal(true);
+};
 
     const handleEditChange = (e) => {
         const { name, value } = e.target;
