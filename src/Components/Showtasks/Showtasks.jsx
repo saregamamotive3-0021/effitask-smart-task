@@ -82,7 +82,7 @@ const ShowTasks = () => {
                     : null,
             });
             const response = await fetch(
-                `http://localhost:5000/updateTask/${editTask.id}`,
+                `https://effitask-smart-task.onrender.com/updateTask/${editTask.id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -121,7 +121,7 @@ const ShowTasks = () => {
         const task = tasks.find((t) => t.id === id);
 
         try {
-            await fetch(`http://localhost:5000/updateStatus/${id}`, {
+            await fetch(`https://effitask-smart-task.onrender.com/updateStatus/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const ShowTasks = () => {
 
     const deleteTask = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/delete/${id}`, {
+            const response = await fetch(`https://effitask-smart-task.onrender.com/delete/${id}`, {
                 method: "PUT",
             });
 
@@ -162,12 +162,12 @@ const ShowTasks = () => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
 
-        fetch(`http://localhost:5000/tasks/${user.id}`)
+        fetch(`https://effitask-smart-task.onrender.com/tasks/${user.id}`)
             .then((response) => response.json())
             .then((data) => setTasks(data))
             .catch((error) => console.error(error));
 
-    fetch(`http://localhost:5000/reminders/${user.id}`)
+    fetch(`https://effitask-smart-task.onrender.com/reminders/${user.id}`)
             .then((response) => response.json())
             .then((data) => setReminders(data))
             .catch((error) => console.error(error));

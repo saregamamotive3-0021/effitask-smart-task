@@ -80,7 +80,7 @@ const Form = () => {
 
             // Example backend call
 
-            const response = await fetch("http://localhost:5000/addTask", {
+            const response = await fetch("https://effitask-smart-task.onrender.com/addTask", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
