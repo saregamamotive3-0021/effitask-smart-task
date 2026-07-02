@@ -1,8 +1,13 @@
 .footer {
-    background-color: #111827;
+    background: #111827 !important;
     color: #ffffff;
     padding: 50px 20px 20px;
     width: 100%;
+}
+
+.footer,
+.footer * {
+    background: transparent;
 }
 
 /* Container */
@@ -15,7 +20,6 @@
     flex-wrap: wrap;
     gap: 50px;
 
-    /* Remove any white box */
     background: transparent;
     border: none;
     border-radius: 0;
@@ -47,7 +51,7 @@
     font-size: 1rem;
 }
 
-/* List */
+/* Lists */
 .footer ul {
     list-style: none;
     padding: 0;
@@ -57,15 +61,26 @@
 .footer ul li {
     color: #d1d5db;
     margin-bottom: 12px;
-    transition: color 0.3s ease;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.footer ul li:hover {
+/* Quick Links */
+.footer-center a {
+    color: #d1d5db;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+
+.footer-center li:hover,
+.footer-center li:hover a,
+.footer-center a:hover {
     color: #14b8a6;
 }
 
-/* Bottom Copyright */
+
 .footer-bottom {
     text-align: center;
     margin-top: 40px;
@@ -75,40 +90,7 @@
     font-size: 0.95rem;
 }
 
-/* Quick Links heading */
-.footer-center h3 {
-  color: #14b8a6;
-  margin-bottom: 15px;
-}
 
-/* Remove bullets and spacing */
-.footer-center ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* List items */
-.footer-center li {
-  margin: 10px 0;
-  cursor: pointer;
-}
-
-/* Link color */
-.footer-center a {
-  color: #14b8a6;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-
-.footer-center a:hover,
-.footer-center li:hover {
-  color: #0f9d8d;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
@@ -121,13 +103,4 @@
     .footer-right {
         min-width: 100%;
     }
-}
-
-.footer,
-.footer * {
-    background: transparent;
-}
-
-.footer {
-    background: #111827 !important;
 }
