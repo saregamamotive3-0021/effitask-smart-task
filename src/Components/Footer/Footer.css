@@ -75,6 +75,39 @@
     font-size: 0.95rem;
 }
 
+/* Quick Links heading */
+.footer-center h3 {
+  color: #14b8a6;
+  margin-bottom: 15px;
+}
+
+/* Remove bullets and spacing */
+.footer-center ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* List items */
+.footer-center li {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+/* Link color */
+.footer-center a {
+  color: #14b8a6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+
+.footer-center a:hover,
+.footer-center li:hover {
+  color: #0f9d8d;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .footer-container {
