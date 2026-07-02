@@ -26,7 +26,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-center">
-          <h3>Tabs</h3>
+          <h3>Quick Links</h3>
           <ul>
             <li>
               <Link to="/"> Home</Link>
