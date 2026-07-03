@@ -219,7 +219,7 @@ app.put("/updateStatus/:id", (req, res) => {
     const { id } = req.params;
     const { completed } = req.body;
 
-    const sql = "UPDATE tasks SET completed = ? WHERE id = ?";
+    const sql = "UPDATE TASKS SET completed = ? WHERE id = ?";
 
     connection.query(sql, [completed, id], (err, result) => {
         if (err) {
