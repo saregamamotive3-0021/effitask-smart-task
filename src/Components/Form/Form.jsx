@@ -86,12 +86,15 @@ const Form = () => {
 
         try {
             console.log("Saving task:", task);
-            console.log("Raw Date:", task.startDate);
-console.log("toString:", task.startDate.toString());
-console.log("toISOString:", task.startDate.toISOString());
-console.log("Timezone Offset:", task.startDate.getTimezoneOffset());
-console.log("getDate:", task.startDate.getDate());
-console.log("Formatted:", formatDate(task.startDate));
+            console.log("task.startDate =", task.startDate);
+console.log("task.startDate.toString() =", task.startDate.toString());
+console.log("task.startDate.toISOString() =", task.startDate.toISOString());
+console.log("task.startDate.getDate() =", task.startDate.getDate());
+
+console.log("task.endDate =", task.endDate);
+console.log("task.endDate.toString() =", task.endDate.toString());
+console.log("task.endDate.toISOString() =", task.endDate.toISOString());
+console.log("task.endDate.getDate() =", task.endDate.getDate());
 
             // Example backend call
 
