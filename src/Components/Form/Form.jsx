@@ -86,6 +86,12 @@ const Form = () => {
 
         try {
             console.log("Saving task:", task);
+            console.log("Raw Date:", task.startDate);
+console.log("toString:", task.startDate.toString());
+console.log("toISOString:", task.startDate.toISOString());
+console.log("Timezone Offset:", task.startDate.getTimezoneOffset());
+console.log("getDate:", task.startDate.getDate());
+console.log("Formatted:", formatDate(task.startDate));
 
             // Example backend call
 
