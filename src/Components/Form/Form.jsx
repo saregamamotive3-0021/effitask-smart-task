@@ -74,27 +74,19 @@ const Form = () => {
 
     const saveTask = async (id) => {
         const task = tasks.find((t) => t.id === id);
-        const formatDate = (date) => {
+            const formatDate = (date) => {
         if (!date) return null;
 
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
+        const localDate = new Date(
+            date.getTime() - date.getTimezoneOffset() * 60000
+        );
 
-        return `${year}-${month}-${day}`;
+        return localDate.toISOString().split("T")[0];
     };
 
         try {
             console.log("Saving task:", task);
             console.log("task.startDate =", task.startDate);
-console.log("task.startDate.toString() =", task.startDate.toString());
-console.log("task.startDate.toISOString() =", task.startDate.toISOString());
-console.log("task.startDate.getDate() =", task.startDate.getDate());
-
-console.log("task.endDate =", task.endDate);
-console.log("task.endDate.toString() =", task.endDate.toString());
-console.log("task.endDate.toISOString() =", task.endDate.toISOString());
-console.log("task.endDate.getDate() =", task.endDate.getDate());
 
             // Example backend call
 
