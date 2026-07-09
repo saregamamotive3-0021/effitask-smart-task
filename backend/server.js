@@ -31,8 +31,6 @@ app.post("/addTask", (req, res) => {
     console.log("BODY:", req.body);
 
     const { text, priority, startDate, endDate, userId } = req.body;
-      console.log("Received Start:", startDate);
-    console.log("Received End:", endDate);
 
     const sql = `
         INSERT INTO TASKS
@@ -63,7 +61,15 @@ app.get("/tasks/:userId", (req, res) => {
     const { userId } = req.params;
 
     const sql = `
-        SELECT *
+        SELECT
+            id,
+            task_name,
+            priority,
+            DATE_FORMAT(start_date, '%Y-%m-%d') AS start_date,
+            DATE_FORMAT(end_date, '%Y-%m-%d') AS end_date,
+            completed,
+            is_deleted,
+            user_id
         FROM TASKS
         WHERE user_id = ?
         AND is_deleted = FALSE
@@ -71,6 +77,7 @@ app.get("/tasks/:userId", (req, res) => {
 
     connection.query(sql, [userId], (err, result) => {
         if (err) {
+            console.error(err);
             return res.status(500).json({
                 message: "Error fetching tasks",
             });
@@ -82,25 +89,22 @@ app.get("/tasks/:userId", (req, res) => {
 
 app.get("/tasks", (req, res) => {
     const sql = `
-        SELECT *
+        SELECT
+            id,
+            task_name,
+            priority,
+            DATE_FORMAT(start_date, '%Y-%m-%d') AS start_date,
+            DATE_FORMAT(end_date, '%Y-%m-%d') AS end_date,
+            completed,
+            is_deleted,
+            user_id
         FROM TASKS
         WHERE is_deleted = FALSE
     `;
 
-    // connection.query(sql, (err, results) => {
-    //     if (err) {
-    //         console.error(err);
-    //         return res.status(500).json({
-    //             message: "Error fetching tasks"
-    //         });
-    //     }
-
-    //     res.json(results);
-    // });
-
     connection.query(sql, (err, result) => {
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.status(500).json({
                 message: "Error fetching tasks",
             });
