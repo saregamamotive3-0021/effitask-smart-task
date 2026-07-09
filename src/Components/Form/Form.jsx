@@ -74,6 +74,15 @@ const Form = () => {
 
     const saveTask = async (id) => {
         const task = tasks.find((t) => t.id === id);
+        const formatDate = (date) => {
+        if (!date) return null;
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    };
 
         try {
             console.log("Saving task:", task);
@@ -88,13 +97,9 @@ const Form = () => {
                 body: JSON.stringify({
                     text: task.text,
                     priority: task.priority,
-                    startDate: task.startDate
-                        ? task.startDate.toISOString().split("T")[0]
-                        : null,
-                    endDate: task.endDate
-                        ? task.endDate.toISOString().split("T")[0]
-                        : null,
-                         userId: user?.id
+                    startDate: formatDate(task.startDate),
+                    endDate: formatDate(task.endDate),
+                    userId: user?.id
                 }),
             });
 
