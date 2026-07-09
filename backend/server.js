@@ -31,6 +31,8 @@ app.post("/addTask", (req, res) => {
     console.log("BODY:", req.body);
 
     const { text, priority, startDate, endDate, userId } = req.body;
+      console.log("Received Start:", startDate);
+    console.log("Received End:", endDate);
 
     const sql = `
         INSERT INTO TASKS
