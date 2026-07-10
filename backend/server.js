@@ -19,12 +19,8 @@ const connection = mysql.createConnection({
     },
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.error(" Database connection failed:", err.message);
-        process.exit(1); // Exit with failure
-    }
-    console.log("Connected to MySQL database successfully!");
+app.use((req, res) => {
+    res.status(404).json({ message: "Route not found" });
 });
 
 app.post("/addTask", (req, res) => {
