@@ -19,9 +19,7 @@ const connection = mysql.createConnection({
     },
 });
 
-app.use((req, res) => {
-    res.status(404).json({ message: "Route not found" });
-});
+
 
 app.post("/addTask", (req, res) => {
     console.log("BODY:", req.body);
@@ -315,6 +313,10 @@ app.put("/updateTask/:id", (req, res) => {
             });
         },
     );
+});
+
+app.use((req, res) => {
+    res.status(404).json({ message: "Route not found" });
 });
 
 connection.connect((err) => {
