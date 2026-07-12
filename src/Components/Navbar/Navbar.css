@@ -125,7 +125,7 @@ a {
         position:sticky;
         top:0;
         z-index:2000;
-        background:white;
+       
     }
 
     .menu-icon {
@@ -150,8 +150,6 @@ a {
 
         width:260px;
         height:calc(100vh - 80px);
-
-        background:white;
 
         display:flex;
         flex-direction:column;
