@@ -51,3 +51,82 @@ color:#0f766e;
     font-size: 16px;
     cursor: pointer;
 }
+
+
+/* Large Desktop */
+@media (max-width: 1200px) {
+    .subscription {
+        padding: 40px 20px;
+    }
+
+    .head {
+        font-size: 34px;
+    }
+
+    .input-form {
+        max-width: 550px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .subscription {
+        padding: 35px 16px;
+    }
+
+    .head {
+        font-size: 30px;
+    }
+
+    .input-form {
+        max-width: 100%;
+        padding: 24px;
+    }
+
+    .input,
+    .Subscribe {
+        font-size: 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .subscription {
+        padding: 30px 12px;
+    }
+
+    .head {
+        font-size: 26px;
+    }
+
+    .input-form {
+        padding: 20px;
+        border-radius: 6px;
+    }
+
+    .input {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .Subscribe {
+        padding: 10px;
+        font-size: 15px;
+    }
+}
+
+/* Very Small Phones */
+@media (max-width: 360px) {
+    .head {
+        font-size: 22px;
+    }
+
+    .input-form {
+        padding: 16px;
+    }
+
+    .input,
+    .Subscribe {
+        font-size: 13px;
+    }
+}

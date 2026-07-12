@@ -204,7 +204,7 @@ const ShowTasks = () => {
       <input
         type="text"
         value={search}
-        placeholder="Search tasks..."
+        placeholder="Search tasks here"
         onChange={searchFunction}
         className="input2"
       />
