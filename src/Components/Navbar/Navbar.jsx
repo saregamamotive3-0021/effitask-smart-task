@@ -57,21 +57,25 @@ const Navbar = () => {
       <ul className={`nav-ul ${menuOpen ? "active" : ""}`}>
         <li className="nav-list">
           {" "}
-          <Link to="/"> Home</Link>
+          <Link to="/"   onClick={() => setMenuOpen(false)}> Home</Link>
         </li>
         <li className="nav-list">
           {" "}
-          <Link to="/showtasks">Task Tracker</Link>
+          <Link to="/showtasks"   onClick={() => setMenuOpen(false)}>Task Tracker</Link>
         </li>
         <li className="nav-list">
-          <Link to="/form">Add Tasks</Link>
+          <Link to="/form"   onClick={() => setMenuOpen(false)}>Add Tasks</Link>
         </li>
-        <li className="nav-list" onClick={scrollToBanner}>
-          Subscription
-        </li>
-      </ul>
+            <li
+        className="nav-list"
+        onClick={() => {
+            scrollToBanner();
+            setMenuOpen(false);
+        }}
+    >
+        Subscription
+    </li>
 
-      <div className="login">
         {!isLoggedIn && (
           <button onClick={clickAction2} className="btn-login">
             Sign Up
@@ -83,11 +87,12 @@ const Navbar = () => {
             Logout
           </button>
         )}
-      </div>
+      </ul>
+
 
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         <img
-          src={menuOpen ? hamburger : close}
+          src={menuOpen ? close:hamburger}
           alt="Menu"
           className="menu-img"
         />
