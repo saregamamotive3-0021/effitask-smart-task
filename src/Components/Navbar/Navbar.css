@@ -34,7 +34,7 @@ a {
     gap: 35px;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 5px 0 0 0;
 }
 
 .nav-list {
@@ -106,17 +106,15 @@ a {
 
 /* Mobile */
 @media (max-width: 992px) {
-    .nav-container {
-        padding: 20px;
-        flex-wrap: wrap;
-        height: auto;
-        gap: 15px;
-    }
-
     .nav-ul {
         gap: 20px;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+     .nav-container {
+        padding: 20px;
+        height: auto;
     }
 
     .TaskNav {
@@ -128,46 +126,44 @@ a {
 
     .nav-container{
         position:relative;
-        justify-content:space-between;
-        align-items:center;
-        flex-direction:row;
+        height:80px;
         padding:0 20px;
     }
 
     .menu-icon{
         display:block;
+        width:30px;
+        cursor:pointer;
         z-index:1001;
     }
- 
+
     .nav-ul {
-    position: fixed;
-    top: 80px;
-    right: -100%;
-    width: 250px;
-    height: calc(100vh - 80px);
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;  
-    padding-top: 40px;
-    padding-left: 30px;        
-    gap: 25px;                 
-    transition: 0.3s ease;
-    z-index: 999;
-}
+        position:fixed;
+        top:80px;
+        right:-250px;
+
+        width:250px;
+        height:calc(100vh - 80px);
+
+        background:white;
+
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
+        align-items:flex-start;
+
+        padding:40px 30px;
+        gap:25px;
+
+        transition:0.3s ease;
+        z-index:999;
+    }
 
     .nav-ul.active {
-        right: 0;
+        right:0;
     }
 
     .login{
         display:none;
-    }
-
-       .menu-icon {
-        display: block;
-        width: 30px;
-        cursor: pointer;
     }
 }
