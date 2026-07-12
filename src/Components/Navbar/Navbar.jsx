@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import hamburger from "../../assets/hamburger.png";
-import close from "../../assets/hamburger.png";
+import close from "../../assets/close.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
