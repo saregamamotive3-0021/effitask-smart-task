@@ -137,7 +137,7 @@ a {
         right:-250px;
 
         width:250px;
-        height:100vh;
+        max-height:100vh;
 
         display:flex;
         flex-direction:column;
