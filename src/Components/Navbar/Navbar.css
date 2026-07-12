@@ -119,13 +119,37 @@ a {
 
 @media (max-width:768px){
 
+    .nav-container {
+        height:80px;
+        padding:0 20px;
+        position:sticky;
+        top:0;
+        z-index:2000;
+        background:white;
+    }
+
+    .menu-icon {
+        display:block;       /* important */
+        width:30px;
+        height:30px;
+        cursor:pointer;
+        z-index:3000;
+    }
+
+    .menu-img {
+        width:30px;
+        height:30px;
+        object-fit:contain;
+    }
+
+
     .nav-ul {
-        position: fixed;
-        top: 80px; /* below navbar */
-        right: -260px;
+        position:fixed;
+        top:80px;
+        right:-260px;
 
         width:260px;
-        height: calc(100vh - 80px); /* fills screen below navbar */
+        height:calc(100vh - 80px);
 
         background:white;
 
@@ -138,7 +162,7 @@ a {
         gap:25px;
 
         transition:0.3s ease;
-        z-index:999;
+        z-index:1000;
         overflow-y:auto;
     }
 
