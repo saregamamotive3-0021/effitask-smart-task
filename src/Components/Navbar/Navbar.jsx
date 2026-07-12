@@ -52,9 +52,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`nav-ul ${showNavbar ? "active" : ""}`}>
+    <nav className={`nav-container ${showNavbar ? "show" : "hide"}`}>
       <p className="TaskNav">EffiTask</p>
-      <ul className="nav-ul">
+      <ul className={`nav-ul ${menuOpen ? "active" : ""}`}>
         <li className="nav-list">
           {" "}
           <Link to="/"> Home</Link>
