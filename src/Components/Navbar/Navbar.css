@@ -125,7 +125,7 @@ a {
 @media (max-width:768px){
 
     .nav-container{
-        position:relative;
+        position: relative;
         height:80px;
         padding:0 20px;
     }
@@ -138,12 +138,12 @@ a {
     }
 
     .nav-ul {
-        position:fixed;
-        top:80px;
+        position: fixed;
+        top:0;
         right:-250px;
 
         width:250px;
-        height:calc(100vh - 80px);
+        height:100vh;
 
         background:white;
 
@@ -152,15 +152,21 @@ a {
         justify-content:flex-start;
         align-items:flex-start;
 
-        padding:40px 30px;
+        padding:100px 30px 30px;
         gap:25px;
 
+        list-style:none;
         transition:0.3s ease;
         z-index:999;
     }
 
     .nav-ul.active {
         right:0;
+    }
+
+    .nav-ul li {
+        width:100%;
+        text-align:left;
     }
 
     .login{
