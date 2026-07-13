@@ -59,7 +59,7 @@
 
 /* Table Header */
 .tasks-table thead {
-    background-color: #111827;
+    background: transparent;
 }
 
 .tasks-table th {
