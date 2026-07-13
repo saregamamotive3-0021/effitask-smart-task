@@ -116,56 +116,52 @@ a {
     }
 }
 
-
 @media (max-width:768px){
 
-    .nav-container {
+    .nav-container{
         height:80px;
         padding:0 20px;
         position:sticky;
         top:0;
         z-index:2000;
-       
+        background:#f8f9ff;
     }
 
-    .menu-icon {
-        display:block;       /* important */
+    .menu-icon{
+        display:block;
         width:30px;
         height:30px;
         cursor:pointer;
-        z-index:3000;
+        z-index:3001;
     }
 
-    .menu-img {
+    .menu-img{
         width:30px;
         height:30px;
-        object-fit:contain;
     }
 
-
-    .nav-ul {
+    .nav-ul{
         position:fixed;
         top:80px;
-        right:-260px;
-
+        right:-100%;          /* Hide completely */
         width:260px;
         height:calc(100vh - 80px);
 
+        background:#f8f9ff;   /* Give sidebar a background */
+
         display:flex;
         flex-direction:column;
-        justify-content:flex-start;
         align-items:flex-start;
+        justify-content:flex-start;
 
-        padding:40px 30px;
+        padding:40px 25px;
         gap:25px;
 
-        transition:0.3s ease;
-        z-index:1000;
-        overflow-y:auto;
+        transition:right .3s ease;
+        z-index:3000;
     }
 
-    .nav-ul.active {
+    .nav-ul.active{
         right:0;
     }
-
 }
