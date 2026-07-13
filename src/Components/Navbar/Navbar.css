@@ -154,8 +154,7 @@ a {
         gap: 30px;
 
         transition: right 0.3s ease;
-        /* z-index: 9999; */
-        z-index:10;
+        z-index: 9999;
     }
 
     .nav-ul.active {
