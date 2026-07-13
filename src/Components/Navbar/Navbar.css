@@ -4,88 +4,69 @@ a {
     text-decoration: none;
 }
 
-
-
 .nav-container {
     width: 100%;
     height: 80px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 0 60px;
-    /* background: #f8f9ff; */
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 10000;
+    background: #F5F3FF;
     box-sizing: border-box;
+    transition: transform .3s ease;
 }
 
 /* Logo */
+
 .TaskNav {
     font-size: 2rem;
     font-weight: 700;
     color: #111827;
     margin: 0;
-    cursor: pointer;
 }
 
-/* Navigation Links */
+/* Desktop Menu */
+
 .nav-ul {
     display: flex;
     align-items: center;
     gap: 35px;
     list-style: none;
     margin: 0;
-    padding: 5px 0 0 0;
+    padding: 0;
 }
 
 .nav-list {
-    color: #111827;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: .3s;
 }
 
-.nav-list:hover {
+.nav-list:hover,
+.nav-ul a:hover {
     color: #14b8a6;
-}
-
-/* Login Buttons Container */
-.login {
-    display: flex;
-    gap: 15px;
-}
-
-/* Buttons */
-.btn-login {
-    border: none;
-    outline: none;
-    padding: 12px 24px;
-    border-radius: 10px;
-    background:linear-gradient(135deg, #0f766e, #14b8a6);
-    color: white;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
-}
-
-.btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
 }
 
 .nav-ul a,
 .nav-ul a:visited {
     color: #111827;
-    text-decoration: none;
 }
 
-.nav-ul a:hover {
-    color: #14b8a6;
+.btn-login {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    background: linear-gradient(135deg,#0f766e,#14b8a6);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
 }
+
+/* Navbar animation */
 
 .show {
     transform: translateY(0);
@@ -95,57 +76,79 @@ a {
     transform: translateY(-100%);
 }
 
+/* Hamburger */
+
 .menu-icon {
     display: none;
-    cursor: pointer;
 }
 
 .menu-img {
     width: 30px;
     height: 30px;
-    object-fit: contain;
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+    .nav-container{
+        padding:0 20px;
+    }
+
+    .TaskNav{
+        font-size:1.6rem;
+    }
 }
 
 /* Mobile */
-@media (max-width: 992px) {
-     .nav-container {
-        padding: 20px;
-        height: auto;
+
+@media (max-width:768px){
+
+    .menu-icon{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        position:fixed;
+        top:25px;
+        right:20px;
+
+        width:35px;
+        height:35px;
+
+        cursor:pointer;
+        z-index:10002;
     }
 
-    .TaskNav {
-        font-size: 1.6rem;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .nav-ul {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-
-        background: #F5F3FF;   /* Important */
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        gap: 30px;
-
-        transition: left 0.3s ease;
-        z-index: 9999;
+    .menu-img{
+        width:32px;
+        height:32px;
     }
 
-    .nav-ul.active {
-        left: 0;
+    .nav-ul{
+        position:fixed;
+
+        top:0;
+        left:-100%;
+
+        width:100%;
+        height:100vh;
+
+        background:#F5F3FF;
+
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+
+        gap:35px;
+
+        transition:left .35s ease;
+
+        z-index:10001;
     }
 
-    .nav-container {
-        /* background: #F5F3FF; */
-        z-index: 10000;
+    .nav-ul.active{
+        left:0;
     }
 }
