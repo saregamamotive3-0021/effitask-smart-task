@@ -124,8 +124,7 @@ a {
         position:sticky;
         top:0;
         z-index:2000;
-        background:#f8f9ff;
-    }
+         }
 
     .menu-icon{
         display:block;
@@ -147,7 +146,7 @@ a {
         width:260px;
         height:calc(100vh - 80px);
 
-        background:#f8f9ff;   /* Give sidebar a background */
+       
 
         display:flex;
         flex-direction:column;
