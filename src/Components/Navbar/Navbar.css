@@ -139,28 +139,23 @@ a {
         height:30px;
     }
 
-    .nav-ul{
-        position:fixed;
-        top:80px;
-        right:-100%;          /* Hide completely */
-        width:260px;
-        height:calc(100vh - 80px);
+    .nav-ul {
+        position: fixed;
+        top: 80px;
+        right: -100%;   /* Hidden initially */
+        width: 260px;
+        height: calc(100vh - 80px);
+     
 
-       
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 40px 25px;
 
-        display:flex;
-        flex-direction:column;
-        align-items:flex-start;
-        justify-content:flex-start;
-
-        padding:40px 25px;
-        gap:25px;
-
-        transition:right .3s ease;
-        z-index:3000;
+        transition: right 0.3s ease;
     }
 
-    .nav-ul.active{
-        right:0;
+    .nav-ul.active {
+        right: 0;       /* Show when clicked */
     }
 }
