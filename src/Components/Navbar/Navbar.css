@@ -133,31 +133,27 @@ a {
         z-index: 3001;
     }
 
-    .nav-ul {
-        position: fixed;
-        top: 80px;
-        right: -280px;
-        left: auto;
+.nav-ul {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
 
-        width: 280px;
-        height: calc(100vh - 80px);
+    background: #F5F3FF;
 
-        background: #F5F3FF;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
+    padding-top: 90px; /* space for the X button */
+    gap: 30px;
 
-        padding-top: 40px;
-        gap: 30px;
+    transition: right 0.3s ease;
+    z-index: 9999;
+}
 
-        transition: right 0.3s ease;
-        z-index: 9999;
-    }
-
-    .nav-ul.active {
-        right: 0;
-    }
+.nav-ul.active {
+    right: 0;
+}
 }
