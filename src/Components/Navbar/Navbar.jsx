@@ -51,54 +51,94 @@ const Navbar = () => {
     }
   };
 
-  return (
-    <nav className={`nav-container ${showNavbar ? "show" : "hide"}`}>
-      <p className="TaskNav">EffiTask</p>
-      <ul className={`nav-ul ${menuOpen ? "active" : ""}`}>
+ return (
+  <nav className={`nav-container ${showNavbar ? "show" : "hide"}`}>
+    <p className="TaskNav">EffiTask</p>
+
+    {/* Desktop Menu */}
+    <ul className="nav-ul desktop-menu">
+      <li className="nav-list">
+        <Link to="/">Home</Link>
+      </li>
+
+      <li className="nav-list">
+        <Link to="/showtasks">Task Tracker</Link>
+      </li>
+
+      <li className="nav-list">
+        <Link to="/form">Add Tasks</Link>
+      </li>
+
+      <li className="nav-list" onClick={scrollToBanner}>
+        Subscription
+      </li>
+
+      {!isLoggedIn ? (
+        <button onClick={clickAction2} className="btn-login">
+          Sign Up
+        </button>
+      ) : (
+        <button onClick={handleLogout} className="btn-login">
+          Logout
+        </button>
+      )}
+    </ul>
+
+    {/* Mobile Sidebar */}
+    <div className={`mobile-menu ${menuOpen ? "active" : ""}`}>
+      <ul className="mobile-nav-ul">
         <li className="nav-list">
-          {" "}
-          <Link to="/"   onClick={() => setMenuOpen(false)}> Home</Link>
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            Home
+          </Link>
         </li>
+
         <li className="nav-list">
-          {" "}
-          <Link to="/showtasks"   onClick={() => setMenuOpen(false)}>Task Tracker</Link>
+          <Link to="/showtasks" onClick={() => setMenuOpen(false)}>
+            Task Tracker
+          </Link>
         </li>
+
         <li className="nav-list">
-          <Link to="/form"   onClick={() => setMenuOpen(false)}>Add Tasks</Link>
+          <Link to="/form" onClick={() => setMenuOpen(false)}>
+            Add Tasks
+          </Link>
         </li>
-            <li
-        className="nav-list"
-        onClick={() => {
+
+        <li
+          className="nav-list"
+          onClick={() => {
             scrollToBanner();
             setMenuOpen(false);
-        }}
-    >
-        Subscription
-    </li>
+          }}
+        >
+          Subscription
+        </li>
 
-        {!isLoggedIn && (
+        {!isLoggedIn ? (
           <button onClick={clickAction2} className="btn-login">
             Sign Up
           </button>
-        )}
-
-        {isLoggedIn && (
+        ) : (
           <button onClick={handleLogout} className="btn-login">
             Logout
           </button>
         )}
       </ul>
+    </div>
 
-
-      <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-        <img
-          src={menuOpen ? close:hamburger}
-          alt="Menu"
-          className="menu-img"
-        />
-      </div>
-    </nav>
-  );
+    <div
+      className="menu-icon"
+      onClick={() => setMenuOpen(!menuOpen)}
+    >
+      <img
+        src={menuOpen ? close : hamburger}
+        alt="menu"
+        className="menu-img"
+      />
+    </div>
+  </nav>
+);
 };
 
 export default Navbar;
