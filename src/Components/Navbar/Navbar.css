@@ -106,10 +106,10 @@ a {
     .nav-container{
         padding:0 20px;
         height:80px;
+        background:#F5F3FF;
         position:sticky;
         top:0;
         z-index:1000;
-        background:#F5F3FF;
     }
 
     .menu-icon{
@@ -127,27 +127,34 @@ a {
     .nav-ul{
         position:fixed;
         top:0;
-        right:-280px;          /* Hidden initially */
+        right:-280px;
 
         width:280px;
         height:100vh;
 
+        margin:0;
+        padding:90px 0 0 0;
+        list-style:none;
+
         background:#F5F3FF;
-        box-shadow:-4px 0 15px rgba(0,0,0,0.15);
+        box-shadow:-5px 0 20px rgba(0,0,0,.15);
 
         display:flex;
         flex-direction:column;
         align-items:center;
+        justify-content:flex-start;
 
-        padding-top:100px;     /* Space for close icon */
-        gap:30px;
+        gap:25px;
 
         transition:right .3s ease;
-
         z-index:2000;
     }
 
     .nav-ul.active{
         right:0;
+    }
+
+    .btn-login{
+        width:180px;
     }
 }
