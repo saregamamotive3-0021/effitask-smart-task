@@ -150,11 +150,12 @@ a {
         align-items: center;
         justify-content: flex-start;
 
-        padding-top: 90px;
+        padding-top: 40px;
         gap: 30px;
 
         transition: right 0.3s ease;
-        z-index: 9999;
+        /* z-index: 9999; */
+        z-index:10;
     }
 
     .nav-ul.active {
