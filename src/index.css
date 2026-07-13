@@ -1,4 +1,9 @@
-*{
-background-color:#F5F3FF;
-/* padding:0px; */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F5F3FF;
 }
