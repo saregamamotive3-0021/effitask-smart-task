@@ -133,27 +133,31 @@ a {
         z-index: 3001;
     }
 
-.nav-ul {
-    position: fixed;
-    top: 0;
-    right: -280px;
-    width: 280px;
-    height: 100vh;
+    .nav-ul {
+        position: fixed;
+        top: 80px;
+        right: -280px;
+        left: auto;
 
-    background: #F5F3FF;
+        width: 280px;
+        height: calc(100vh - 80px);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        background: #F5F3FF;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.15);
 
-    padding-top: 90px; /* space for the X button */
-    gap: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
 
-    transition: right 0.3s ease;
-    z-index: 9999;
-}
+        padding-top: 40px;
+        gap: 30px;
 
-.nav-ul.active {
-    right: 0;
-}
+        transition: right 0.3s ease;
+        z-index: 9999;
+    }
+
+    .nav-ul.active {
+        right: 0;
+    }
 }
