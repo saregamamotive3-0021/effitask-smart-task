@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import hamburger from "../../assets/hamburger.png";
 import close from "../../assets/close.png";
+import Effi from '../../assets/effi.png'
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -53,7 +54,10 @@ const Navbar = () => {
 
   return (
     <nav className={`nav-container ${showNavbar ? "show" : "hide"}`}>
-      <p className="TaskNav">EffiTask</p>
+     <div className="logo-container">
+  <img src={Effi} alt="EffiTask Logo" className="EffiTask" />
+  <p className="TaskNav">EffiTask</p>
+   </div>
       <ul className={`nav-ul ${menuOpen ? "active" : ""}`}>
         <li className="nav-list">
           {" "}
