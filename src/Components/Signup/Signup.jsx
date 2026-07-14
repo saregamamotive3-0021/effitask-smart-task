@@ -1,17 +1,17 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./Signup.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const [privacyPolicy, setPrivacyPolicy] = useState(false);
 
- 
-  const [formData,setFormData]=useState({
-  name:"",
-  email:"",
-  password:"",
-  })
-  
-    const handleChange = (e) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -33,18 +33,26 @@ const Signup = () => {
       return;
     }
 
+    if (!privacyPolicy) {
+      alert("Please accept the Privacy Policy before signing up.");
+      return;
+    }
+
     try {
-      const response = await fetch("https://effitask-smart-task.onrender.com/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://effitask-smart-task.onrender.com/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
         },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
+      );
 
       const data = await response.json();
       alert(data.message);
@@ -55,7 +63,7 @@ const Signup = () => {
   };
 
   return (
-   <div className="signup-container">
+    <div className="signup-container">
       <div className="signup-card">
         <h2>Create Account</h2>
 
@@ -102,6 +110,22 @@ const Signup = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
             />
+          </div>
+
+          <div className="privacy-check">
+            <input
+              type="checkbox"
+              id="privacy"
+              checked={privacyPolicy}
+              onChange={(e) => setPrivacyPolicy(e.target.checked)}
+            />
+
+            <label htmlFor="privacy">
+              I have read and agree to the{" "}
+              <Link to="/privacy-policy" target="_blank">
+                Privacy Policy
+              </Link>
+            </label>
           </div>
 
           <button type="submit" className="signup-btn">
