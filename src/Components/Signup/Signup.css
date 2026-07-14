@@ -67,3 +67,139 @@
   text-decoration: none;
   color:purple;
 }
+
+/* Privacy Policy Section */
+
+.privacy-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 18px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.privacy-check input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #4f46e5;
+}
+
+.privacy-check label {
+    cursor: pointer;
+}
+
+.privacy-check a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.privacy-check a:hover {
+    color: #3730a3;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .signup-container {
+        padding: 20px;
+    }
+
+    .signup-card {
+        width: 100%;
+        max-width: 420px;
+        padding: 25px;
+    }
+
+    .signup-card h2 {
+        font-size: 28px;
+    }
+
+    .signup-btn {
+        font-size: 15px;
+        padding: 11px;
+    }
+
+    .privacy-check {
+        font-size: 13px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .signup-container {
+        padding: 15px;
+        align-items: center;
+    }
+
+    .signup-card {
+        width: 100%;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .signup-card h2 {
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+
+    .input-group {
+        margin-bottom: 14px;
+    }
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+    .input-group input {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .signup-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .login-text {
+        font-size: 14px;
+    }
+
+    .privacy-check {
+        gap: 8px;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .privacy-check input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+
+@media (max-width: 320px) {
+    .signup-card {
+        padding: 16px;
+    }
+
+    .signup-card h2 {
+        font-size: 22px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    .signup-btn {
+        font-size: 14px;
+    }
+
+    .privacy-check {
+        font-size: 11px;
+    }
+}

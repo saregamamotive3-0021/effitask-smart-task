@@ -13,6 +13,7 @@ import Login from "./Components/Login/Login";
 import Signup from "./Components/Signup/Signup";
 import Context from "./Context/Context";
 import Footer from "./Components/Footer/Footer";
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 
 function App() {
     return (
@@ -58,6 +59,7 @@ function App() {
                     }
                 />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/privacy" element={<PrivacyPolicy/>}/>
             </Routes>
         </>
     );
