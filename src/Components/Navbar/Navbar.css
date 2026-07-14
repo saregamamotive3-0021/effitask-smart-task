@@ -91,7 +91,7 @@ a {
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     cursor: pointer;
 }
 
@@ -179,7 +179,7 @@ a {
 
     /*Logo*/
     .logo-container {
-    gap: 8px;
+    gap: 2px;
 }
 
 .EffiTask {
