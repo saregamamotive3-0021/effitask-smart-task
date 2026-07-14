@@ -19,7 +19,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-left">
-          <h2>EffiTask</h2>
+          <h2 className="heading1">EffiTask</h2>
           <p>
             Organize your tasks, track progress, and achieve your goals
             efficiently.
