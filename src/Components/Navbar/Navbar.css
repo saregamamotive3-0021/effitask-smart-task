@@ -10,7 +10,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 60px;
+    padding: 0 40px;
     position: sticky;
     top: 0;
     z-index: 10000;
@@ -87,28 +87,30 @@ a {
     height: 30px;
 }
 
-/* Logo Container */
+/* Logo Section */
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 5px;
-    cursor: pointer;
+    gap: 8px;              /* Space between icon & text */
+    margin-left: -8px;     /* Move slightly left */
 }
 
 /* Logo Image */
 .EffiTask {
-    width: 175px;
-    height: 175px;
+    width: 58px;
+    height: 58px;
     object-fit: contain;
 }
 
-/* Logo Text */
+/* Brand Name */
 .TaskNav {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0f172a;
     margin: 0;
-    letter-spacing: 0.5px;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    font-family: "Poppins", sans-serif;
 }
 
 /* Tablet */
@@ -177,17 +179,17 @@ a {
     }
 
 
-    /*Logo*/
-    .logo-container {
-    gap: 2px;
+.logo-container{
+    gap:6px;
+    margin-left:0;
 }
 
-.EffiTask {
-    width: 148px;
-    height: 148px;
+.EffiTask{
+    width:45px;
+    height:45px;
 }
 
-.TaskNav {
-    font-size: 1.6rem;
+.TaskNav{
+    font-size:1.7rem;
 }
 }
