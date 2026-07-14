@@ -177,7 +177,6 @@ const Signup = () => {
 
                   <ul>
                     <li>Update your account information.</li>
-                    <li>Delete your account.</li>
                     <li>Delete your saved tasks.</li>
                   </ul>
 

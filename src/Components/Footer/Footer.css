@@ -26,18 +26,7 @@
     box-shadow: none;
 }
 
-.heading1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 0 15px;
-    line-height: 1.2;
-    display: inline-block;
 
-    background: linear-gradient(135deg, #0f766e, #14b8a6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
 /* Columns */
 .footer-left,
 .footer-center,
@@ -45,6 +34,16 @@
     flex: 1;
     min-width: 240px;
     background: transparent;
+}
+
+.heading1 {
+    text-align: left;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-left {
+    text-align: left;
 }
 
 /* Headings */
