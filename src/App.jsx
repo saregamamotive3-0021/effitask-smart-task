@@ -58,8 +58,10 @@ function App() {
                         </Context>
                     }
                 />
+
+                 <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
+               
             </Routes>
         </>
     );
