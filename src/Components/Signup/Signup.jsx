@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
+  const [acceptedPolicy, setAcceptedPolicy] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,7 +34,7 @@ const Signup = () => {
       return;
     }
 
-    if (!privacyPolicy) {
+    if (!acceptedPolicy) {
       alert("Please accept the Privacy Policy before signing up.");
       return;
     }
@@ -112,19 +113,114 @@ const Signup = () => {
             />
           </div>
 
+          {privacyPolicy && (
+            <div
+              className="privacy-modal-overlay"
+              onClick={() => setPrivacyPolicy(false)}
+            >
+              <div
+                className="privacy-modal"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="privacy-header">
+                  <h2>Privacy Policy</h2>
+
+                  <button
+                    type="button"
+                    className="close-btn"
+                    onClick={() => setPrivacyPolicy(false)}
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <div className="privacy-content">
+                  <h3>Welcome to EffiTask</h3>
+
+                  <p>
+                    By creating an account, you agree to the collection and use
+                    of your information as described below.
+                  </p>
+
+                  <h3>Information We Collect</h3>
+                  <ul>
+                    <li>Your full name.</li>
+                    <li>Email address.</li>
+                    <li>Encrypted password.</li>
+                    <li>Your tasks, reminders, and task completion status.</li>
+                  </ul>
+
+                  <h3>How We Use Your Information</h3>
+                  <ul>
+                    <li>To create and manage your account.</li>
+                    <li>To securely save your tasks.</li>
+                    <li>To send reminders within the application.</li>
+                    <li>To improve the user experience.</li>
+                  </ul>
+
+                  <h3>Security</h3>
+
+                  <p>
+                    Your password is encrypted before being stored. We use
+                    reasonable security measures to protect your personal
+                    information.
+                  </p>
+
+                  <h3>Data Sharing</h3>
+
+                  <p>
+                    We never sell or rent your personal information to third
+                    parties.
+                  </p>
+
+                  <h3>Your Rights</h3>
+
+                  <ul>
+                    <li>Update your account information.</li>
+                    <li>Delete your account.</li>
+                    <li>Delete your saved tasks.</li>
+                  </ul>
+
+                  <h3>Policy Updates</h3>
+
+                  <p>
+                    This Privacy Policy may be updated periodically. Continued
+                    use of EffiTask indicates your acceptance of any changes.
+                  </p>
+                </div>
+
+                <div className="privacy-footer">
+                  <button
+                    type="button"
+                    className="accept-btn"
+                    onClick={() => {
+                      setAcceptedPolicy(true);
+                      setPrivacyPolicy(false);
+                    }}
+                  >
+                    I Understand
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="privacy-check">
             <input
               type="checkbox"
               id="privacy"
-              checked={privacyPolicy}
-              onChange={(e) => setPrivacyPolicy(e.target.checked)}
+              checked={acceptedPolicy}
+              onChange={(e) => setAcceptedPolicy(e.target.checked)}
             />
 
             <label htmlFor="privacy">
               I have read and agree to the{" "}
-              <Link to="/privacy-policy">
+              <span
+                className="privacy-link"
+                onClick={() => setPrivacyPolicy(true)}
+              >
                 Privacy Policy
-              </Link>
+              </span>
             </label>
           </div>
 

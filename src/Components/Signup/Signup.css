@@ -1,117 +1,261 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .signup-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .signup-card {
-  width: 400px;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .signup-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111827;
 }
 
 .input-group {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .input-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #444;
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #444;
 }
 
 .input-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    outline: none;
+    transition: .3s;
 }
 
 .input-group input:focus {
-  border-color: #4a90e2;
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 3px rgba(20,184,166,.15);
 }
 
 .signup-btn {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  background: #0f766e;
-  color: white;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    transition: .3s;
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15,118,110,.25);
 }
 
 .login-text {
-  text-align: center;
-  margin-top: 15px;
+    margin-top: 18px;
+    text-align: center;
 }
 
 .login-text a {
-  text-decoration: none;
-  color:purple;
+    text-decoration: none;
+    color: #0f766e;
+    font-weight: 600;
 }
 
-/* Privacy Policy Section */
+/* ========================
+   Privacy Checkbox
+======================== */
 
 .privacy-check {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     margin: 18px 0;
+    color: #111827;
     font-size: 14px;
     line-height: 1.5;
-    color: #555;
 }
 
 .privacy-check input[type="checkbox"] {
-    margin-top: 3px;
     width: 18px;
     height: 18px;
+    margin-top: 3px;
+    accent-color: #0f766e;
     cursor: pointer;
-    accent-color: #4f46e5;
 }
 
 .privacy-check label {
     cursor: pointer;
 }
 
-.privacy-check a {
-    color: #4f46e5;
-    text-decoration: none;
+.privacy-link {
+    color: #0f766e;
     font-weight: 600;
-    transition: color 0.3s ease;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.privacy-check a:hover {
-    color: #3730a3;
-    text-decoration: underline;
+.privacy-link:hover {
+    color: #14b8a6;
 }
+
+/* ========================
+   Privacy Modal
+======================== */
+
+.privacy-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.privacy-modal {
+    width: 100%;
+    max-width: 700px;
+    max-height: 85vh;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    animation: popup .3s ease;
+}
+
+.privacy-header {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+}
+
+.privacy-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+}
+
+.privacy-content {
+    padding: 25px;
+    max-height: 55vh;
+    overflow-y: auto;
+    color: #111827;
+    line-height: 1.8;
+}
+
+.privacy-content h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #0f766e;
+}
+
+.privacy-content p {
+    margin-bottom: 12px;
+}
+
+.privacy-content ul {
+    margin-left: 22px;
+}
+
+.privacy-content li {
+    margin-bottom: 8px;
+}
+
+.privacy-footer {
+    border-top: 1px solid #e5e7eb;
+    padding: 18px 24px;
+    text-align: right;
+}
+
+.accept-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    transition: .3s;
+}
+
+.accept-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15,118,110,.25);
+}
+
+/* Scrollbar */
+
+.privacy-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.privacy-content::-webkit-scrollbar-thumb {
+    background: #14b8a6;
+    border-radius: 20px;
+}
+
+.privacy-content::-webkit-scrollbar-track {
+    background: #f3f4f6;
+}
+
+/* Animation */
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========================
+   Responsive
+======================== */
 
 @media (max-width: 768px) {
-    .signup-container {
-        padding: 20px;
-    }
 
     .signup-card {
         width: 100%;
-        max-width: 420px;
         padding: 25px;
     }
 
@@ -119,49 +263,31 @@
         font-size: 28px;
     }
 
-    .signup-btn {
-        font-size: 15px;
-        padding: 11px;
+    .privacy-modal {
+        width: 95%;
     }
 
-    .privacy-check {
-        font-size: 13px;
+    .privacy-content {
+        padding: 20px;
+        max-height: 60vh;
     }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
-    .signup-container {
-        padding: 15px;
-        align-items: center;
-    }
 
     .signup-card {
-        width: 100%;
         padding: 20px;
-        border-radius: 10px;
     }
 
     .signup-card h2 {
         font-size: 24px;
-        margin-bottom: 18px;
-    }
-
-    .input-group {
-        margin-bottom: 14px;
-    }
-
-    .input-group label {
-        font-size: 14px;
     }
 
     .input-group input {
-        padding: 10px;
         font-size: 15px;
     }
 
     .signup-btn {
-        padding: 12px;
         font-size: 15px;
     }
 
@@ -170,33 +296,39 @@
     }
 
     .privacy-check {
-        gap: 8px;
         font-size: 12px;
-        line-height: 1.4;
     }
 
-    .privacy-check input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
+    .privacy-header {
+        padding: 16px;
+    }
+
+    .privacy-header h2 {
+        font-size: 20px;
+    }
+
+    .privacy-content {
+        font-size: 14px;
+        padding: 16px;
+    }
+
+    .privacy-footer {
+        text-align: center;
+    }
+
+    .accept-btn {
+        width: 100%;
     }
 }
 
-
 @media (max-width: 320px) {
+
     .signup-card {
         padding: 16px;
     }
 
     .signup-card h2 {
         font-size: 22px;
-    }
-
-    .input-group input {
-        font-size: 14px;
-    }
-
-    .signup-btn {
-        font-size: 14px;
     }
 
     .privacy-check {
