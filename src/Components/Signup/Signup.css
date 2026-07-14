@@ -81,18 +81,14 @@
     font-weight: 600;
 }
 
-/* ========================
-   Privacy Checkbox
-======================== */
 
 .privacy-check {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     margin: 18px 0;
-    color: #111827;
     font-size: 14px;
-    line-height: 1.5;
+    color: #111827;
 }
 
 .privacy-check input[type="checkbox"] {
