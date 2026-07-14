@@ -59,7 +59,7 @@ function App() {
                     }
                 />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/privacy" element={<PrivacyPolicy/>}/>
+                <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             </Routes>
         </>
     );

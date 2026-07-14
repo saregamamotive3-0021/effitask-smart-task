@@ -122,7 +122,7 @@ const Signup = () => {
 
             <label htmlFor="privacy">
               I have read and agree to the{" "}
-              <Link to="/privacy" target="_blank">
+              <Link to="/privacy-policy" target="_blank">
                 Privacy Policy
               </Link>
             </label>
