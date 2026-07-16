@@ -4,202 +4,200 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Form.css";
 
 const Form = () => {
-    const MAX_TASKS = 500;
-    const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    const [tasks, setTasks] = useState([]);
-    const [input, setInput] = useState(""); 
+  const [tasks, setTasks] = useState([]);
+  const [input, setInput] = useState("");
 
-    const [startDate, setStartDate] = useState(null);
-    const [EndDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [EndDate, setEndDate] = useState(null);
 
+  const addTask = () => {
+    if (input.trim() === "") {
+      alert("Please enter a task");
+      return;
+    }
 
-    const addTask = () => {
-        if (tasks.length >= MAX_TASKS) {
-            alert(`You can only add up to ${MAX_TASKS} tasks.`);
-            return;
+    const newTask = {
+      id: tasks.length + 1,
+      text: input,
+      priority: false,
+      startDate: startDate,
+      endDate: EndDate,
+      saved: false,
+    };
+
+    setTasks([...tasks, newTask]);
+    setInput("");
+    setStartDate(null);
+    setEndDate(null);
+  };
+
+  const colorChange = (id) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) => {
+        if (task.id === id) {
+          console.log(
+            "Changing task",
+            id,
+            "from",
+            task.priority,
+            "to",
+            !task.priority,
+          );
+
+          return {
+            ...task,
+            priority: !task.priority,
+          };
         }
 
-        if (input.trim() === "") {
-            alert("Please enter a task");
-            return;
-        }
+        return task;
+      });
 
-        const newTask = {
-            id: tasks.length + 1,
-            text: input,
-            priority: false,
-            startDate: startDate,
-            endDate: EndDate,
-            saved: false,
-        };
+      console.log("Updated Tasks:", updatedTasks);
 
-        setTasks([...tasks, newTask]);
-        setInput("");
-        setStartDate(null);
-        setEndDate(null);
+      return updatedTasks;
+    });
+  };
+
+  const cancelTask = (id) => {
+    setTasks(tasks.filter((task) => task.id != id));
+  };
+
+  const saveTask = async (id) => {
+    const task = tasks.find((t) => t.id === id);
+    const formatDate = (date) => {
+      if (!date) return null;
+
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
     };
 
-    const colorChange = (id) => {
-        setTasks((prevTasks) => {
-            const updatedTasks = prevTasks.map((task) => {
-                if (task.id === id) {
-                    console.log(
-                        "Changing task",
-                        id,
-                        "from",
-                        task.priority,
-                        "to",
-                        !task.priority,
-                    );
+    try {
+      console.log("Saving task:", task);
+      console.log("task.startDate =", task.startDate);
 
-                    return {
-                        ...task,
-                        priority: !task.priority,
-                    };
-                }
+      // Example backend call
 
-                return task;
-            });
+      const response = await fetch(
+        "https://effitask-smart-task.onrender.com/addTask",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: task.text,
+            priority: task.priority,
+            startDate: formatDate(task.startDate),
+            endDate: formatDate(task.endDate),
+            userId: user?.id,
+          }),
+        },
+      );
 
-            console.log("Updated Tasks:", updatedTasks);
+      if (!response.ok) {
+        throw new Error("Failed to save");
+      }
 
-            return updatedTasks;
-        });
-    };
+      setTasks((prevTasks) =>
+        prevTasks.map((t) => (t.id === id ? { ...t, saved: true } : t)),
+      );
 
-    const cancelTask = (id) => {
-        setTasks(tasks.filter((task) => task.id != id));
-    };
+      alert("Task Saved Successfully");
+    } catch (error) {
+      console.error(error);
+      alert("Error saving task");
+    }
+  };
 
-    const saveTask = async (id) => {
-        const task = tasks.find((t) => t.id === id);
-        const formatDate = (date) => {
-    if (!date) return null;
+  const startHandle = (date) => {
+    setStartDate(date);
+    if (EndDate && date > EndDate) {
+      setEndDate(null);
+    }
+  };
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+  const EndHandle = (date) => {
+    if (startDate && date < startDate) {
+      alert("End date not allowed before start date");
+      return;
+    }
 
-    return `${year}-${month}-${day}`;
-};
+    setEndDate(date);
+  };
 
-        try {
-            console.log("Saving task:", task);
-            console.log("task.startDate =", task.startDate);
+  return (
+    <div className="Tasks-Form">
+      {/* ✅ Input field */}
 
-            // Example backend call
+      <div className="top-input">
+        <h1 className="heading">Add Tasks</h1>
 
-            const response = await fetch("https://effitask-smart-task.onrender.com/addTask", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    text: task.text,
-                    priority: task.priority,
-                    startDate: formatDate(task.startDate),
-                    endDate: formatDate(task.endDate),
-                    userId: user?.id
-                }),
-            });
+        <div className="input-box">
+          <h2 className="sub-heading">Enter Task</h2>
 
-            if (!response.ok) {
-                throw new Error("Failed to save");
-            }
+          <input
+            type="text"
+            placeholder="Enter your task"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="input1"
+          />
 
-            setTasks((prevTasks) =>
-                prevTasks.map((t) => (t.id === id ? { ...t, saved: true } : t)),
-            );
+          <div className="date-row">
+            <div className="date-field">
+              <label>Start Date</label>
 
-            alert("Task Saved Successfully");
-        } catch (error) {
-            console.error(error);
-            alert("Error saving task");
-        }
-    };
+              <DatePicker
+                selected={startDate}
+                onChange={startHandle}
+                selectsStart
+                startDate={startDate}
+                endDate={EndDate}
+                placeholderText="Select start date"
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
 
-    const startHandle = (date) => {
-        setStartDate(date);
-        if (EndDate && date > EndDate) {
-            setEndDate(null);
-        }
-    };
+            <div className="date-field">
+              <label>End Date</label>
 
-    const EndHandle = (date) => {
-        if (startDate && date < startDate) {
-            alert("End date not allowed before start date");
-            return;
-        }
+              <DatePicker
+                selected={EndDate}
+                onChange={EndHandle}
+                selectsEnd
+                startDate={startDate}
+                endDate={EndDate}
+                minDate={startDate}
+                placeholderText="Select end date"
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
+          </div>
 
-        setEndDate(date);
-    };
+          <button onClick={addTask} className="addTasks">
+            Add Task
+          </button>
+        </div>
 
-    return (
-        <div className="Tasks-Form">
-            {/* ✅ Input field */}
+        <button onClick={addTask} className="addTasks">
+          Add Task
+        </button>
 
-            <div className="top-input">
-                <h1 className="heading">Add Tasks</h1>
+        {/* ✅ Display tasks */}
+        <ul className="task-priority">
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <div className="task-header">
+                <h3>{task.text}</h3>
 
-              <div className="input-box">
-                <h2 className="sub-heading">Enter Tasks:</h2>
-                <input
-                    type="text"
-                    placeholder="Enter your task"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="input1"
-                />
-               
-
-                <div>
-                    <label>Start Date: </label>
-                    <DatePicker
-                        selected={startDate}
-                        onChange={startHandle}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={EndDate}
-                        placeholderText="Select start date"
-                        dateFormat="dd/MM/yyyy"
-                    />
-                </div>
-
-                <div>
-                    <div>
-                        <label>End Date: </label>
-                        <DatePicker
-                            selected={EndDate}
-                            onChange={EndHandle}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={EndDate}
-                            minDate={startDate}
-                            placeholderText="Select end date"
-                            dateFormat="dd/MM/yyyy"
-                        />
-                    </div>
-                 </div>
-                </div>
-
-                <button
-                    onClick={addTask}
-                    disabled={tasks.length >= MAX_TASKS}
-                    className="addTasks"
-                >
-                    Add Task
-                </button>
-
-                {/* ✅ Display tasks */}
-                <ul className="task-priority">
-                    {tasks.map((task) => (
-                        <li key={task.id}>
-                            <div className="task-header">
-                            <h3>{task.text}</h3>
-
-                            {/* <p>Priority: {String(task.priority)}</p> */}
-                            {/* <p className="startDate">
+                {/* <p>Priority: {String(task.priority)}</p> */}
+                {/* <p className="startDate">
                                 Start Date:{" "}
                                 {task.startDate
                                     ? task.startDate.toLocaleDateString()
@@ -213,43 +211,43 @@ const Form = () => {
                                     : "Not Selected"}
                             </p> */}
 
-                            <div className="star">
-                                <button
-                                    className="StarPriority"
-                                    type="button"
-                                    onClick={() => colorChange(task.id)}
-                                    style={{
-                                        color: task.priority ? "gold" : "black",
-                                        background: "none",
-                                        border: "none",
-                                        fontSize: "24px",
-                                    }}
-                                >
-                                    ★
-                                </button>
-                                </div>
-                            </div>
+                <div className="star">
+                  <button
+                    className="StarPriority"
+                    type="button"
+                    onClick={() => colorChange(task.id)}
+                    style={{
+                      color: task.priority ? "gold" : "black",
+                      background: "none",
+                      border: "none",
+                      fontSize: "24px",
+                    }}
+                  >
+                    ★
+                  </button>
+                </div>
+              </div>
 
-                            <button
-                                onClick={() => saveTask(task.id)}
-                                disabled={task.saved}
-                                className="savetask"
-                            >
-                                {task.saved ? "Saved" : "Save"}
-                            </button>
+              <button
+                onClick={() => saveTask(task.id)}
+                disabled={task.saved}
+                className="savetask"
+              >
+                {task.saved ? "Saved" : "Save"}
+              </button>
 
-                            <button
-                                className="cancelTask"
-                                onClick={() => cancelTask(task.id)}
-                            >
-                                Cancel
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
+              <button
+                className="cancelTask"
+                onClick={() => cancelTask(task.id)}
+              >
+                Cancel
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 export default Form;
