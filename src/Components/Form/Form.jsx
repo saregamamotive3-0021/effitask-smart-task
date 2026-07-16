@@ -185,9 +185,6 @@ const Form = () => {
           </button>
         </div>
 
-        <button onClick={addTask} className="addTasks">
-          Add Task
-        </button>
 
         {/* ✅ Display tasks */}
         <ul className="task-priority">
