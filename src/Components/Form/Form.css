@@ -141,8 +141,10 @@ label {
     width:100%;
 }
 
-.star{
-    margin-left:auto;
+.star {
+    display: flex;
+    align-items: center;
+    gap: 10px;  
 }
 
 .task-header h3{
