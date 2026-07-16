@@ -185,44 +185,33 @@ const Form = () => {
           </button>
         </div>
 
-
         {/* ✅ Display tasks */}
         <ul className="task-priority">
           {tasks.map((task) => (
             <li key={task.id}>
-              <div className="task-header">
-                <h3>{task.text}</h3>
-
-                {/* <p>Priority: {String(task.priority)}</p> */}
-                {/* <p className="startDate">
-                                Start Date:{" "}
-                                {task.startDate
-                                    ? task.startDate.toLocaleDateString()
-                                    : "Not Selected"}
-                            </p>
-
-                            <p className="endDate">
-                                End Date:{" "}
-                                {task.endDate
-                                    ? task.endDate.toLocaleDateString()
-                                    : "Not Selected"}
-                            </p> */}
-
+              <div className="task-card-top">
                 <div className="star">
                   <button
                     className="StarPriority"
                     type="button"
                     onClick={() => colorChange(task.id)}
                     style={{
-                      color: task.priority ? "gold" : "black",
+                      color: task.priority ? "gold" : "#cbd5e1",
                       background: "none",
                       border: "none",
-                      fontSize: "24px",
+                      fontSize: "28px",
+                      cursor: "pointer",
                     }}
                   >
                     ★
                   </button>
+
+                  <span className="priority-text">
+                    {task.priority ? "Important" : "Not Important"}
+                  </span>
                 </div>
+
+                <h3>{task.text}</h3>
               </div>
 
               <button
