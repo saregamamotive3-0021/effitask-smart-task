@@ -250,10 +250,10 @@ const ShowTasks = () => {
             <tr>
               <th>ID</th>
               <th>Task Name</th>
-              <th>Priority</th>
+              <th>Importance</th>
               <th>Edit</th>
               <th>Delete</th>
-              <th>Status</th>
+              <th>Tasks Done</th>
             </tr>
           </thead>
 
@@ -264,7 +264,7 @@ const ShowTasks = () => {
 
                 <td>{task.task_name}</td>
 
-                <td>{task.priority ? "High" : "Low"}</td>
+                <td>{task.priority ? "Important" : "Not Important"}</td>
 
                 <td>
                   <button className="Edit" onClick={() => openEditModal(task)}>
