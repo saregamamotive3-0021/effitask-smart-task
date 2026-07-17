@@ -125,7 +125,7 @@ const ShowTasks = () => {
   );
 
   const toggleTask = async (id) => {
-    const task = tasks.find((t) => t.id !== id);
+    const task = tasks.find((t) => t.id === id);
 
     try {
       await fetch(
