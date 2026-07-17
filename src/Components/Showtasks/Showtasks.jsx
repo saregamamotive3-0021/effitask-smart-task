@@ -125,7 +125,7 @@ const ShowTasks = () => {
   );
 
   const toggleTask = async (id) => {
-    const task = tasks.find((t) => t.id === id);
+    const task = tasks.find((t) => t.id !== id);
 
     try {
       await fetch(
@@ -215,7 +215,7 @@ const ShowTasks = () => {
         <h2>🔔 Upcoming Reminders</h2>
 
         {reminders.map((task) => {
-          const days = Number(task.days_left); // ✅ correct place
+          const days = Number(task.days_left); 
 
           return (
             <div className="reminder-card" key={task.id}>
