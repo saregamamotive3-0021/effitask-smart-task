@@ -152,23 +152,30 @@ const ShowTasks = () => {
     }
   };
 
-  const deleteTask = async (id) => {
-    try {
-      const response = await fetch(
-        `https://effitask-smart-task.onrender.com/delete/${id}`,
-        {
-          method: "PUT",
-        },
-      );
+ const deleteTask = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to permanently delete this task?"
+  );
 
-      const data = await response.json();
-      console.log(data);
+  if (!confirmDelete) return;
 
-      setTasks(tasks.filter((task) => task.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  try {
+    const response = await fetch(
+      `https://effitask-smart-task.onrender.com/delete/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+    setReminders((prev) => prev.filter((task) => task.id !== id));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));

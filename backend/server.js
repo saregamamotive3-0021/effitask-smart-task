@@ -108,14 +108,10 @@ app.get("/tasks", (req, res) => {
     });
 });
 
-app.put("/delete/:id", (req, res) => {
+app.delete("/delete/:id", (req, res) => {
     const { id } = req.params;
 
-    const sql = `
-        UPDATE TASKS
-        SET is_deleted = TRUE
-        WHERE id = ?
-    `;
+    const sql = "DELETE FROM TASKS WHERE id = ?";
 
     connection.query(sql, [id], (err, result) => {
         if (err) {
@@ -125,8 +121,14 @@ app.put("/delete/:id", (req, res) => {
             });
         }
 
-        res.json({
-            message: "Task deleted successfully",
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: "Task not found",
+            });
+        }
+
+        res.status(200).json({
+            message: "Task permanently deleted",
         });
     });
 });
