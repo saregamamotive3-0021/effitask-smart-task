@@ -317,6 +317,50 @@ app.put("/updateTask/:id", (req, res) => {
     );
 });
 
+
+// Delete Account from LOGIN table
+
+app.delete("/deleteAccount/:id", (req, res) => {
+
+    const { id } = req.params;
+
+    const sql = "DELETE FROM LOGIN WHERE id = ?";
+
+
+    connection.query(sql, [id], (err, result) => {
+
+        if (err) {
+            console.log(err);
+
+            return res.status(500).json({
+                success: false,
+                message: "Error deleting account"
+            });
+        }
+
+
+        if (result.affectedRows === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+
+        }
+
+
+        res.status(200).json({
+
+            success: true,
+
+            message: "Account deleted successfully"
+
+        });
+
+    });
+
+});
+
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found" });
 });

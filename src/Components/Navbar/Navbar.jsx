@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import hamburger from "../../assets/hamburger.png";
 import close from "../../assets/close.png";
+import profile from "../../assets/profile.png"
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showNavbar, setNavbar] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   // const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
@@ -51,6 +53,44 @@ const Navbar = () => {
     }
   };
 
+  const deleteAccount = async () => {
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete your account?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+
+    const response = await fetch(
+      `http://localhost:5000/deleteAccount/${user.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+
+      alert("Account deleted successfully");
+
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("user");
+
+      navigate("/");
+      window.location.reload();
+
+    }
+
+  } catch(error){
+    console.log(error);
+  }
+};
+
   return (
     <nav className={`nav-container ${showNavbar ? "show" : "hide"}`}>
       <p className="TaskNav">EffiTask</p>
@@ -83,9 +123,30 @@ const Navbar = () => {
         )}
 
         {isLoggedIn && (
-          <button onClick={handleLogout} className="btn-login">
-            Logout
+           <>
+    <div className="profile-image">
+
+      <img
+        src={profile}
+        alt="profile"
+        onClick={() => setShowProfile(!showProfile)}
+      />
+
+      {showProfile && (
+        <div className="profile-dropdown">
+          <button onClick={deleteAccount}>
+            Delete Account
           </button>
+        </div>
+      )}
+
+    </div>
+
+    <button onClick={handleLogout} className="btn-login">
+      Logout
+    </button>
+
+  </>
         )}
       </ul>
 
