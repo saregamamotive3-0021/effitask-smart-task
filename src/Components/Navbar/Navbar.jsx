@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import hamburger from "../../assets/hamburger.png";
 import close from "../../assets/close.png";
+import profile from "../../assets/profile.png"
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -51,6 +52,37 @@ const Navbar = () => {
     }
   };
 
+  /*user delete*/
+  const deleteAccount = async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const confirmDelete = window.confirm(
+    "Are you sure you want to permanently delete your account? This action cannot be undone."
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(
+      `https://effitask-smart-task.onrender.com/deleteAccount/${user.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+
+    alert(data.message);
+
+    localStorage.removeItem("user");
+
+    window.location.href = "/";
+  } catch (error) {
+    console.error(error);
+    alert("Unable to delete account.");
+  }
+};
+
   return (
     <nav className={`nav-container ${showNavbar ? "show" : "hide"}`}>
       <p className="TaskNav">EffiTask</p>
@@ -83,11 +115,21 @@ const Navbar = () => {
         )}
 
         {isLoggedIn && (
-          <button onClick={handleLogout} className="btn-login">
-            Logout
-          </button>
+          // <button onClick={handleLogout} className="btn-login">
+          //   Logout
+          // </button>
+          <div className="profile-menu">
+    {/* <button onClick={editUser}>Edit Username</button> */}
+
+    <button className="delete-btn" onClick={deleteAccount}>
+        Delete Account
+    </button>
+
+    <button onClick={handleLogout}>Logout</button>
+  </div>
         )}
       </ul>
+
 
 
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
@@ -96,6 +138,10 @@ const Navbar = () => {
           alt="Menu"
           className="menu-img"
         />
+      </div>
+
+      <div className="profile-image">
+        <img src={profile} alt="No img"/>
       </div>
     </nav>
   );
