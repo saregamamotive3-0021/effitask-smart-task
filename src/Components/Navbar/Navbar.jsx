@@ -66,7 +66,7 @@ const Navbar = () => {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/deleteAccount/${user.id}`,
+      `https://effitask-smart-task.onrender.com/deleteAccount/${user.id}`,
       {
         method: "DELETE",
       }
