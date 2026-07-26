@@ -133,135 +133,146 @@ a {
 
     }
 
-    .delete-popup-overlay {
+    /* Profile Popup */
+
+.profile-overlay {
+
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 20000;
+    inset:0;
+
+    background:rgba(0,0,0,0.35);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:20000;
 }
 
-.delete-popup {
-    width: 340px;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+
+.profile-window {
+
+    width:350px;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+
 }
+
 
 /* Header */
 
-.popup-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+.profile-header {
 
-    padding: 16px 20px;
+    height:60px;
 
-    background: linear-gradient(135deg, #0b5f58, #0f9f90);
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    border-bottom: 2px solid #111827;
+    background:linear-gradient(135deg,#0f766e,#14b8a6);
+
+    position:relative;
+
 }
 
-.popup-header h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
+
+.profile-header h3 {
+
+    margin:0;
+
+    color:#111827;
+
+    font-size:20px;
+
 }
 
-/* Cancel button on left */
 
-.cancel-btn {
-    position: absolute;
-    left: 15px;
+/* Cancel button left */
 
-    width: 34px;
-    height: 34px;
+.cancel-profile {
 
-    border: none;
-    border-radius: 50%;
+    position:absolute;
 
-    background: rgba(255,255,255,0.3);
-    color: #111827;
+    left:15px;
 
-    font-size: 20px;
-    font-weight: bold;
+    width:35px;
+    height:35px;
 
-    cursor: pointer;
+    border:none;
 
-    transition: 0.3s;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:white;
+
+    font-size:18px;
+
 }
 
-.cancel-btn:hover {
-    background: rgba(255,255,255,0.5);
-}
 
 /* Body */
 
-.delete-popup p {
-    padding: 25px 20px;
-    margin: 0;
-    text-align: center;
-    color: #444;
-    font-size: 15px;
-    line-height: 1.5;
+.profile-body {
+
+    padding:30px;
+
+    text-align:center;
+
 }
 
-/* Footer */
 
-.popup-actions {
-    display: flex;
-    justify-content: center;
-    padding: 0 20px 20px;
+.profile-body img {
+
+    width:80px;
+    height:80px;
+
 }
 
-.delete-confirm-btn {
-    border: none;
-    border-radius: 8px;
 
-    padding: 12px 24px;
+.profile-body h4 {
 
-    background: #dc2626;
-    color: white;
+    margin:15px 0;
 
-    font-size: 15px;
-    font-weight: 600;
+    color:#111827;
 
-    cursor: pointer;
-    transition: .3s;
 }
 
-.delete-confirm-btn:hover {
-    background: #b91c1c;
+
+/* Delete button right side */
+
+.delete-profile-btn {
+
+    float:right;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    background:#dc2626;
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
 }
 
-/* Delete button inside profile dropdown */
 
-.delete-btn {
-    width: 100%;
-    padding: 12px;
+.delete-profile-btn:hover {
 
-    border: none;
-    border-radius: 10px;
+    background:#b91c1c;
 
-    background: white;
-    color: #dc2626;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-    transition: .3s;
 }
-
-.delete-btn:hover {
-    background: #f3f4f6;
-}
-
 /* Tablet */
 
 @media (max-width:992px){
@@ -385,18 +396,5 @@ a {
 
         font-size:14px;
 
-    }
-
-        .delete-popup{
-        width:90%;
-        max-width:340px;
-    }
-
-    .popup-header h3{
-        font-size:17px;
-    }
-
-    .delete-popup p{
-        font-size:14px;
     }
 }
