@@ -129,12 +129,15 @@ const Navbar = () => {
 
     {showProfile && (
   <div className="profile-dropdown">
-    <button
-      className="delete-btn"
-      onClick={() => setShowDelete(true)}
-    >
-      Delete Account
-    </button>
+  <button
+  className="delete-btn"
+  onClick={() => {
+    setShowProfile(false);
+    setShowDelete(true);
+  }}
+>
+  Delete Account
+</button>
   </div>
    )}
 
