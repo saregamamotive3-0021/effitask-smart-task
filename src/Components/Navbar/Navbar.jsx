@@ -11,6 +11,7 @@ const Navbar = () => {
   const [showNavbar, setNavbar] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   // const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
@@ -57,12 +58,6 @@ const Navbar = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete your account?"
-  );
-
-  if (!confirmDelete) return;
-
   try {
 
     const response = await fetch(
@@ -80,7 +75,7 @@ const Navbar = () => {
 
       localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("user");
-
+      setShowDelete(false);
       navigate("/");
       window.location.reload();
 
@@ -132,13 +127,16 @@ const Navbar = () => {
         onClick={() => setShowProfile(!showProfile)}
       />
 
-      {showProfile && (
-        <div className="profile-dropdown">
-          <button onClick={deleteAccount}>
-            Delete Account
-          </button>
-        </div>
-      )}
+    {showProfile && (
+  <div className="profile-dropdown">
+    <button
+      className="delete-btn"
+      onClick={() => setShowDelete(true)}
+    >
+      Delete Account
+    </button>
+  </div>
+   )}
 
     </div>
 
@@ -158,6 +156,37 @@ const Navbar = () => {
           className="menu-img"
         />
       </div>
+
+
+      {showDelete && (
+  <div className="delete-popup-overlay">
+    <div className="delete-popup">
+
+      <div className="popup-header">
+        <button
+          className="cancel-btn"
+          onClick={() => setShowDelete(false)}
+        >
+          ✕
+        </button>
+
+        <h3>My Profile</h3>
+      </div>
+
+      <p>Are you sure you want to delete your account?</p>
+
+      <div className="popup-actions">
+        <button
+          className="delete-confirm-btn"
+          onClick={deleteAccount}
+        >
+          Delete Account
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
     </nav>
   );
 };
