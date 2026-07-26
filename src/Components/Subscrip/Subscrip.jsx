@@ -9,12 +9,12 @@ function Subscrip() {
         const user = localStorage.getItem("user");
 
         if (!user) {
-            alert("⚠️ Please login first!");
+            alert(" Please login first!");
             return;
         }
 
         if (!name || !email) {
-            alert("⚠️ Please fill all fields!");
+            alert(" Please fill all fields!");
             return;
         }
 
