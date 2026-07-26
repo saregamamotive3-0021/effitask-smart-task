@@ -151,8 +151,6 @@ const Navbar = () => {
 
         <img src={profile} alt="profile" />
 
-        <h4>User Profile</h4>
-
         <button 
           className="delete-profile-btn"
           onClick={deleteAccount}
