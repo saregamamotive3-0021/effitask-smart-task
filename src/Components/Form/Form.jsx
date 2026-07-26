@@ -159,6 +159,7 @@ const Form = () => {
                 selectsStart
                 startDate={startDate}
                 endDate={EndDate}
+                minDate={new Date()}
                 placeholderText="Select start date"
                 dateFormat="dd/MM/yyyy"
               />
@@ -173,7 +174,7 @@ const Form = () => {
                 selectsEnd
                 startDate={startDate}
                 endDate={EndDate}
-                minDate={startDate}
+                minDate={startDate || new Date()}
                 placeholderText="Select end date"
                 dateFormat="dd/MM/yyyy"
               />
