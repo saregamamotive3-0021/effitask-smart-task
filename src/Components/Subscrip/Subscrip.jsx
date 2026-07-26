@@ -28,9 +28,8 @@ function Subscrip() {
 
     return (
         <div className="subscription" id="subscrib">
-            <h1 className="head">Subscription</h1>
-
             <div className="input-form">
+                <h1 className="head">Subscription</h1>
                 <label>Name</label>
                 <input
                     type="text"
