@@ -133,51 +133,46 @@ a {
 
     }
 
-    /* Profile Popup */
+    .profile-overlay {
 
-.profile-overlay {
-
-    position: fixed;
+    position:fixed;
     inset:0;
-
-    background:rgba(0,0,0,0.35);
 
     display:flex;
     justify-content:center;
     align-items:center;
 
+    background:rgba(0,0,0,0.25);
+
     z-index:20000;
+
 }
 
 
 .profile-window {
 
-    width:350px;
+    width:300px;
 
     background:white;
 
-    border-radius:15px;
+    border-radius:8px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
 
     overflow:hidden;
-
-    box-shadow:0 15px 40px rgba(0,0,0,0.25);
 
 }
 
 
-/* Header */
-
 .profile-header {
 
-    height:60px;
+    background:#f5f5f5;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    padding:15px;
 
-    background:linear-gradient(135deg,#0f766e,#14b8a6);
+    text-align:center;
 
-    position:relative;
+    border-bottom:1px solid #ddd;
 
 }
 
@@ -186,52 +181,28 @@ a {
 
     margin:0;
 
-    color:#111827;
-
-    font-size:20px;
-
-}
-
-
-/* Cancel button left */
-
-.cancel-profile {
-
-    position:absolute;
-
-    left:15px;
-
-    width:35px;
-    height:35px;
-
-    border:none;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    background:white;
-
     font-size:18px;
 
+    color:#333;
+
 }
 
-
-/* Body */
 
 .profile-body {
 
-    padding:30px;
+    padding:25px;
 
     text-align:center;
 
 }
 
 
-.profile-body img {
+.profile-avatar {
 
     width:80px;
     height:80px;
+
+    border-radius:50%;
 
 }
 
@@ -240,39 +211,55 @@ a {
 
     margin:15px 0;
 
-    color:#111827;
+    color:#444;
 
 }
 
 
-/* Delete button right side */
+.profile-actions {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
 
 .delete-profile-btn {
 
-    float:right;
-
-    border:none;
-
-    padding:12px 20px;
-
-    border-radius:8px;
-
-    background:#dc2626;
+    background:#e53935;
 
     color:white;
 
-    font-weight:600;
+    border:none;
+
+    padding:10px 15px;
+
+    border-radius:5px;
 
     cursor:pointer;
 
 }
 
 
-.delete-profile-btn:hover {
+.cancel-btn {
 
-    background:#b91c1c;
+    background:white;
+
+    color:#555;
+
+    border:1px solid #ccc;
+
+    padding:10px 15px;
+
+    border-radius:5px;
+
+    cursor:pointer;
 
 }
+
 /* Tablet */
 
 @media (max-width:992px){

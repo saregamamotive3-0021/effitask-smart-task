@@ -142,13 +142,6 @@ const Navbar = () => {
 
       <div className="profile-header">
 
-        <button 
-          className="cancel-profile"
-          onClick={() => setShowProfile(false)}
-        >
-          ✕
-        </button>
-
         <h3>My Profile</h3>
 
       </div>
@@ -166,6 +159,9 @@ const Navbar = () => {
         >
           Delete Account
         </button>
+
+       <button   onClick={() => setShowProfile(false)}
+       className='cancel-profile'>Cancel</button>
 
       </div>
 
