@@ -80,45 +80,47 @@ const ShowTasks = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const updateTask = async () => {
-    try {
-      console.log(editTask.start_date);
-      console.log(editTask.end_date);
-      console.log({
-        task_name: editTask.task_name,
-        priority: editTask.priority,
-        start_date: formatDate(editTask.start_date),
-        end_date: formatDate(editTask.end_date),
-      });
-      const response = await fetch(
-        `https://effitask-smart-task.onrender.com/updateTask/${editTask.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            task_name: editTask.task_name,
-            priority: editTask.priority,
-            start_date: formatDate(editTask.start_date),
-            end_date: formatDate(editTask.end_date),
-          }),
+ const updateTask = async () => {
+
+  if (!editTask.task_name || editTask.task_name.trim() === "") {
+    alert("Task name cannot be empty");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://effitask-smart-task.onrender.com/updateTask/${editTask.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          task_name: editTask.task_name.trim(),
+          priority: editTask.priority,
+          start_date: formatDate(editTask.start_date),
+          end_date: formatDate(editTask.end_date),
+        }),
+      }
+    );
 
-      const data = await response.json();
+    const data = await response.json();
+    console.log(data);
 
-      console.log(data);
+    setTasks(
+      tasks.map((task) =>
+        task.id === editTask.id
+          ? { ...editTask, task_name: editTask.task_name.trim() }
+          : task
+      )
+    );
 
-      setTasks(
-        tasks.map((task) => (task.id === editTask.id ? editTask : task)),
-      );
+    setModal(false);
 
-      setModal(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const filteredTasks = tasks.filter((task) =>
     task.task_name.toLowerCase().includes(search.toLowerCase()),
@@ -152,30 +154,30 @@ const ShowTasks = () => {
     }
   };
 
- const deleteTask = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to permanently delete this task?"
-  );
-
-  if (!confirmDelete) return;
-
-  try {
-    const response = await fetch(
-      `https://effitask-smart-task.onrender.com/delete/${id}`,
-      {
-        method: "DELETE",
-      }
+  const deleteTask = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to permanently delete this task?",
     );
 
-    const data = await response.json();
-    console.log(data);
+    if (!confirmDelete) return;
 
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-    setReminders((prev) => prev.filter((task) => task.id !== id));
-  } catch (error) {
-    console.error(error);
-  }
-};
+    try {
+      const response = await fetch(
+        `https://effitask-smart-task.onrender.com/delete/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+      setReminders((prev) => prev.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -222,7 +224,7 @@ const ShowTasks = () => {
         <h2>🔔 Upcoming Reminders</h2>
 
         {reminders.map((task) => {
-          const days = Number(task.days_left); 
+          const days = Number(task.days_left);
 
           return (
             <div className="reminder-card" key={task.id}>
@@ -341,6 +343,7 @@ const ShowTasks = () => {
               onChange={handleEditChange}
               className="input_edit"
             />
+            
 
             <div className="date-group">
               <label>Start Date</label>
@@ -348,6 +351,7 @@ const ShowTasks = () => {
               <DatePicker
                 selected={editTask.start_date}
                 onChange={handleStartDate}
+                minDate={new Date()}
                 dateFormat="dd/MM/yyyy"
               />
             </div>
@@ -358,7 +362,7 @@ const ShowTasks = () => {
               <DatePicker
                 selected={editTask.end_date}
                 onChange={handleEndDate}
-                minDate={editTask.start_date}
+                minDate={editTask.start_date || new Date()}
                 dateFormat="dd/MM/yyyy"
               />
             </div>
