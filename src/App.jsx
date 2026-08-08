@@ -15,7 +15,7 @@ import Context from "./Context/Context";
 import Footer from "./Components/Footer/Footer";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
-import ResetPassword from "./Components/ResetPassword/ResetPassword";
+import SetNewPassword from "./Components/SetNewPassword/SetNewPassword";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
 
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password" element={<SetNewPassword />} />
 
         <Route
           path="/"

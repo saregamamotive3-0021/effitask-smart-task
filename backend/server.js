@@ -1,8 +1,8 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-const bcrypt= require("bcrypt");
-const fs= require("fs");
+const bcrypt = require("bcrypt");
+const fs = require("fs");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
@@ -12,59 +12,58 @@ app.use(cors());
 app.use(express.json());
 
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    ssl: {
-        ca: fs.readFileSync("./ca.pem"),
-    },
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  ssl: {
+    ca: fs.readFileSync("./ca.pem"),
+  },
 });
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-    },
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
-
 app.post("/addTask", (req, res) => {
-    console.log("BODY:", req.body);
+  console.log("BODY:", req.body);
 
-    const { text, priority, startDate, endDate, userId } = req.body;
+  const { text, priority, startDate, endDate, userId } = req.body;
 
-    const sql = `
+  const sql = `
         INSERT INTO TASKS
         (task_name, priority, start_date, end_date, user_id)
         VALUES (?, ?, ?, ?, ?)
     `;
 
-    connection.query(
-        sql,
-        [text, priority, startDate, endDate, userId],
-        (err, result) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({
-                    message: "Failed to save task",
-                });
-            }
+  connection.query(
+    sql,
+    [text, priority, startDate, endDate, userId],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({
+          message: "Failed to save task",
+        });
+      }
 
-            res.status(200).json({
-                message: "Task saved successfully",
-                id: result.insertId,
-            });
-        },
-    );
+      res.status(200).json({
+        message: "Task saved successfully",
+        id: result.insertId,
+      });
+    },
+  );
 });
 
 app.get("/tasks/:userId", (req, res) => {
-    const { userId } = req.params;
+  const { userId } = req.params;
 
-    const sql = `
+  const sql = `
         SELECT
             id,
             task_name,
@@ -79,20 +78,20 @@ app.get("/tasks/:userId", (req, res) => {
         AND is_deleted = FALSE
     `;
 
-    connection.query(sql, [userId], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({
-                message: "Error fetching tasks",
-            });
-        }
+  connection.query(sql, [userId], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        message: "Error fetching tasks",
+      });
+    }
 
-        res.json(result);
-    });
+    res.json(result);
+  });
 });
 
 app.get("/tasks", (req, res) => {
-    const sql = `
+  const sql = `
         SELECT
             id,
             task_name,
@@ -106,147 +105,146 @@ app.get("/tasks", (req, res) => {
         WHERE is_deleted = FALSE
     `;
 
-    connection.query(sql, (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({
-                message: "Error fetching tasks",
-            });
-        }
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        message: "Error fetching tasks",
+      });
+    }
 
-        res.json(result);
-    });
+    res.json(result);
+  });
 });
 
 app.delete("/delete/:id", (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const sql = "DELETE FROM TASKS WHERE id = ?";
+  const sql = "DELETE FROM TASKS WHERE id = ?";
 
-    connection.query(sql, [id], (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({
-                message: "Error deleting task",
-            });
-        }
+  connection.query(sql, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: "Error deleting task",
+      });
+    }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                message: "Task not found",
-            });
-        }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "Task not found",
+      });
+    }
 
-        res.status(200).json({
-            message: "Task permanently deleted",
-        });
+    res.status(200).json({
+      message: "Task permanently deleted",
     });
+  });
 });
 
 //Login
 app.post("/signup", async (req, res) => {
-    const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-    // Email validation
-    const emailRegex =
-        /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|rediffmail\.com)$/i;
+  // Email validation
+  const emailRegex =
+    /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|rediffmail\.com)$/i;
 
-    if (!emailRegex.test(email)) {
-        return res.status(400).json({
-            message: "Enter appropriate mail"
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      message: "Enter appropriate mail",
+    });
+  }
+
+  // Password validation (NEW)
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({
+      message:
+        "Password must be at least 8 characters long and include letters, numbers, and a special character",
+    });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const sql = "INSERT INTO LOGIN (name, email, password) VALUES (?, ?, ?)";
+
+    connection.query(sql, [name, email, hashedPassword], (err) => {
+      if (err) {
+        return res.status(500).json({
+          message: err.message,
         });
-    }
+      }
 
-    // Password validation (NEW)
-    const passwordRegex =
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
-    if (!passwordRegex.test(password)) {
-        return res.status(400).json({
-            message:
-                "Password must be at least 8 characters long and include letters, numbers, and a special character"
-        });
-    }
-
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const sql =
-            "INSERT INTO LOGIN (name, email, password) VALUES (?, ?, ?)";
-
-        connection.query(sql, [name, email, hashedPassword], (err) => {
-            if (err) {
-                return res.status(500).json({
-                    message: err.message
-                });
-            }
-
-            res.status(201).json({
-                message: "User registered successfully"
-            });
-        });
-    } catch (err) {
-        res.status(500).json({
-            message: "Hashing error"
-        });
-    }
+      res.status(201).json({
+        message: "User registered successfully",
+      });
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Hashing error",
+    });
+  }
 });
 
 app.post("/login", (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    const sql = "SELECT * FROM LOGIN WHERE email = ?";
+  const sql = "SELECT * FROM LOGIN WHERE email = ?";
 
-    connection.query(sql, [email], async (err, result) => {
-        if (err) {
-            return res.json({ success: false, message: "Database error" });
-        }
+  connection.query(sql, [email], async (err, result) => {
+    if (err) {
+      return res.json({ success: false, message: "Database error" });
+    }
 
-        if (result.length === 0) {
-            return res.json({
-                success: false,
-                message: "Invalid email or password",
-            });
-        }
+    if (result.length === 0) {
+      return res.json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
 
-        const user = result[0];
+    const user = result[0];
 
-        const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
-        if (!isMatch) {
-            return res.json({
-                success: false,
-                message: "Invalid email or password",
-            });
-        }
+    if (!isMatch) {
+      return res.json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
 
-        return res.json({
-            success: true,
-            user,
-        });
+    return res.json({
+      success: true,
+      user,
     });
+  });
 });
 
 app.put("/updateStatus/:id", (req, res) => {
-    const { id } = req.params;
-    const { completed } = req.body;
+  const { id } = req.params;
+  const { completed } = req.body;
 
-    const sql = "UPDATE TASKS SET completed = ? WHERE id = ?";
+  const sql = "UPDATE TASKS SET completed = ? WHERE id = ?";
 
-    connection.query(sql, [completed, id], (err, result) => {
-        if (err) {
-            return res.status(500).json(err);
-        }
+  connection.query(sql, [completed, id], (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
 
-        res.json({
-            message: "Status updated successfully",
-        });
+    res.json({
+      message: "Status updated successfully",
     });
+  });
 });
 
 app.get("/reminders/:userId", (req, res) => {
-    const userId = req.params.userId;
-    const sql = `
+  const userId = req.params.userId;
+  const sql = `
 SELECT 
     id,
     task_name,
@@ -259,13 +257,13 @@ WHERE user_id = ?
   AND DATEDIFF(CAST(end_date AS DATE), CURDATE()) BETWEEN 0 AND 5
 ORDER BY end_date ASC;
 `;
-    connection.query(sql, [userId], (err, result) => {
-        if (err) {
-            return res.status(500).json(err);
-        }
+  connection.query(sql, [userId], (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
 
-        res.json(result);
-    });
+    res.json(result);
+  });
 });
 
 // app.put("/updateTask/:id", (req, res) => {
@@ -297,11 +295,11 @@ ORDER BY end_date ASC;
 // });
 
 app.put("/updateTask/:id", (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const { task_name, priority, start_date, end_date } = req.body;
+  const { task_name, priority, start_date, end_date } = req.body;
 
-    const sql = `
+  const sql = `
         UPDATE TASKS
         SET task_name = ?,
             priority = ?,
@@ -309,140 +307,124 @@ app.put("/updateTask/:id", (req, res) => {
             end_date = ?
         WHERE id = ?`;
 
-    console.log(task_name, priority, start_date, end_date, id);
+  console.log(task_name, priority, start_date, end_date, id);
 
-    connection.query(
-        sql,
-        [task_name, priority, start_date, end_date, id],
-        (err, result) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json(err);
-            }
+  connection.query(
+    sql,
+    [task_name, priority, start_date, end_date, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
 
-            res.json({
-                message: "Task updated successfully",
-            });
-        },
-    );
+      res.json({
+        message: "Task updated successfully",
+      });
+    },
+  );
 });
-
 
 // Delete Account from LOGIN table
 
 app.delete("/deleteAccount/:id", (req, res) => {
+  const { id } = req.params;
 
-    const { id } = req.params;
+  const sql = "DELETE FROM LOGIN WHERE id = ?";
 
-    const sql = "DELETE FROM LOGIN WHERE id = ?";
+  connection.query(sql, [id], (err, result) => {
+    if (err) {
+      console.log(err);
 
-
-    connection.query(sql, [id], (err, result) => {
-
-        if (err) {
-            console.log(err);
-
-            return res.status(500).json({
-                success: false,
-                message: "Error deleting account"
-            });
-        }
-
-
-        if (result.affectedRows === 0) {
-
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
-
-        }
-
-
-        res.status(200).json({
-
-            success: true,
-
-            message: "Account deleted successfully"
-
-        });
-
-    });
-
-});
-
-
-app.post("/forgot-password", (req, res) => {
-    const { email } = req.body;
-
-    if (!email) {
-        return res.status(400).json({
-            message: "Please enter your email",
-        });
+      return res.status(500).json({
+        success: false,
+        message: "Error deleting account",
+      });
     }
 
-    const sql = "SELECT id, name, email FROM LOGIN WHERE email = ?";
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
-    connection.query(sql, [email], async (err, result) => {
-        if (err) {
-            console.error(err);
+    res.status(200).json({
+      success: true,
 
-            return res.status(500).json({
-                message: "Database error",
-            });
-        }
+      message: "Account deleted successfully",
+    });
+  });
+});
 
-        if (result.length === 0) {
-            return res.status(404).json({
-                message: "Email not registered",
-            });
-        }
+app.post("/forgot-password", (req, res) => {
+  const { email } = req.body;
 
-        const user = result[0];
+  if (!email) {
+    return res.status(400).json({
+      message: "Please enter your email",
+    });
+  }
 
-        // Create random reset token
-        const resetToken = crypto.randomBytes(32).toString("hex");
+  const sql = "SELECT id, name, email FROM LOGIN WHERE email = ?";
 
-        // Hash token before saving in database
-        const resetTokenHash = crypto
-            .createHash("sha256")
-            .update(resetToken)
-            .digest("hex");
+  connection.query(sql, [email], async (err, result) => {
+    if (err) {
+      console.error(err);
 
-        // Token expires after 1 hour
-        const resetTokenExpires = new Date(
-            Date.now() + 60 * 60 * 1000
-        );
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
 
-        const updateSql = `
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "Email not registered",
+      });
+    }
+
+    const user = result[0];
+
+    // Create random reset token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+
+    // Hash token before saving in database
+    const resetTokenHash = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+
+    // Token expires after 1 hour
+    const resetTokenExpires = new Date(Date.now() + 60 * 60 * 1000);
+
+    const updateSql = `
             UPDATE LOGIN
             SET reset_token_hash = ?,
                 reset_token_expires = ?
             WHERE id = ?
         `;
 
-        connection.query(
-            updateSql,
-            [resetTokenHash, resetTokenExpires, user.id],
-            async (updateErr) => {
-                if (updateErr) {
-                    console.error(updateErr);
+    connection.query(
+      updateSql,
+      [resetTokenHash, resetTokenExpires, user.id],
+      async (updateErr) => {
+        if (updateErr) {
+          console.error(updateErr);
 
-                    return res.status(500).json({
-                        message: "Could not create reset link",
-                    });
-                }
+          return res.status(500).json({
+            message: "Could not create reset link",
+          });
+        }
 
-                const resetLink =
-                    `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+        const resetLink = `${process.env.FRONTEND_URL}/set-new-password?token=${resetToken}`;
 
-                try {
-                    await transporter.sendMail({
-                        from: process.env.EMAIL_USER,
-                        to: user.email,
-                        subject: "Reset Your EffiTask Password",
+        try {
+          await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: user.email,
+            subject: "Reset Your EffiTask Password",
 
-                        html: `
+            html: `
                             <h2>Reset Your Password</h2>
 
                             <p>Hello ${user.name},</p>
@@ -475,78 +457,75 @@ app.post("/forgot-password", (req, res) => {
                                 you can ignore this email.
                             </p>
                         `,
-                    });
+          });
 
-                    res.json({
-                        message: "Password reset link sent to your email",
-                    });
-                } catch (emailError) {
-                    console.error(emailError);
+          res.json({
+            message: "Password reset link sent to your email",
+          });
+        } catch (emailError) {
+          console.error(emailError);
 
-                    res.status(500).json({
-                        message: "Could not send reset email",
-                    });
-                }
-            }
-        );
-    });
+          res.status(500).json({
+            message: "Could not send reset email",
+          });
+        }
+      },
+    );
+  });
 });
 
 app.post("/reset-password", async (req, res) => {
-    const { token, password } = req.body;
+  const { token, password } = req.body;
 
-    if (!token || !password) {
-        return res.status(400).json({
-            message: "Token and password are required",
-        });
-    }
+  if (!token || !password) {
+    return res.status(400).json({
+      message: "Token and password are required",
+    });
+  }
 
-    // Same password rules as signup
-    const passwordRegex =
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  // Same password rules as signup
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-    if (!passwordRegex.test(password)) {
-        return res.status(400).json({
-            message:
-                "Password must be at least 8 characters long and include letters, numbers, and a special character",
-        });
-    }
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({
+      message:
+        "Password must be at least 8 characters long and include letters, numbers, and a special character",
+    });
+  }
 
-    // Hash token received from frontend
-    const tokenHash = crypto
-        .createHash("sha256")
-        .update(token)
-        .digest("hex");
+  // Hash token received from frontend
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
 
-    const sql = `
+  const sql = `
         SELECT id
         FROM LOGIN
         WHERE reset_token_hash = ?
         AND reset_token_expires > NOW()
     `;
 
-    connection.query(sql, [tokenHash], async (err, result) => {
-        if (err) {
-            console.error(err);
+  connection.query(sql, [tokenHash], async (err, result) => {
+    if (err) {
+      console.error(err);
 
-            return res.status(500).json({
-                message: "Database error",
-            });
-        }
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
 
-        if (result.length === 0) {
-            return res.status(400).json({
-                message: "Invalid or expired reset link",
-            });
-        }
+    if (result.length === 0) {
+      return res.status(400).json({
+        message: "Invalid or expired reset link",
+      });
+    }
 
-        const userId = result[0].id;
+    const userId = result[0].id;
 
-        try {
-            // Hash new password
-            const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      // Hash new password
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-            const updateSql = `
+      const updateSql = `
                 UPDATE LOGIN
                 SET password = ?,
                     reset_token_hash = NULL,
@@ -554,52 +533,45 @@ app.post("/reset-password", async (req, res) => {
                 WHERE id = ?
             `;
 
-            connection.query(
-                updateSql,
-                [hashedPassword, userId],
-                (updateErr) => {
-                    if (updateErr) {
-                        console.error(updateErr);
+      connection.query(updateSql, [hashedPassword, userId], (updateErr) => {
+        if (updateErr) {
+          console.error(updateErr);
 
-                        return res.status(500).json({
-                            message: "Could not reset password",
-                        });
-                    }
-
-                    res.json({
-                        success: true,
-                        message: "Password reset successfully",
-                    });
-                }
-            );
-        } catch (hashError) {
-            console.error(hashError);
-
-            res.status(500).json({
-                message: "Password hashing error",
-            });
+          return res.status(500).json({
+            message: "Could not reset password",
+          });
         }
-    });
+
+        res.json({
+          success: true,
+          message: "Password reset successfully",
+        });
+      });
+    } catch (hashError) {
+      console.error(hashError);
+
+      res.status(500).json({
+        message: "Password hashing error",
+      });
+    }
+  });
 });
 
-
 app.use((req, res) => {
-    res.status(404).json({ message: "Route not found" });
+  res.status(404).json({ message: "Route not found" });
 });
 
 connection.connect((err) => {
-    if (err) {
-        console.error(" Database connection failed:", err);
-        process.exit(1);
-    }
+  if (err) {
+    console.error(" Database connection failed:", err);
+    process.exit(1);
+  }
 
-    console.log("Connected to MySQL database successfully!");
+  console.log("Connected to MySQL database successfully!");
 
-    const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 5000;
 
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
-
-

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "./ResetPassword.css";
-import { Link, useSearchParams } from "react-router-dom";
+import "./SetNewPassword.css";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
-const ResetPassword = () => {
+const SetNewPassword = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const token = searchParams.get("token");
 
@@ -14,18 +15,18 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!token) {
+      alert("Invalid or missing reset link.");
+      return;
+    }
+
     if (!password || !confirmPassword) {
-      alert("Please enter both passwords");
+      alert("Please enter both passwords.");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-
-    if (!token) {
-      alert("Invalid or missing reset token");
+      alert("Passwords do not match.");
       return;
     }
 
@@ -48,33 +49,39 @@ const ResetPassword = () => {
 
       const data = await response.json();
 
-      alert(data.message);
-
-      if (response.ok) {
-        setPassword("");
-        setConfirmPassword("");
+      if (!response.ok) {
+        alert(data.message || "Could not reset password.");
+        return;
       }
+
+      alert("Password changed successfully!");
+
+      navigate("/login");
     } catch (error) {
       console.error("Reset password error:", error);
-      alert("Error resetting password");
+      alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="reset-password-page">
-      <div className="reset-password-container">
-        <div className="reset-password-card">
-          <h2>Reset Password</h2>
+    <div className="set-password-page">
+      <div className="set-password-container">
+        <div className="set-password-card">
 
-          <p className="reset-password-description">
-            Enter your new password below.
+          <h2>Set New Password</h2>
+
+          <p className="set-password-description">
+            Create a new password for your EffiTask account.
           </p>
 
           <form onSubmit={handleSubmit}>
+
             <div className="input-group">
-              <label htmlFor="password">New Password</label>
+              <label htmlFor="password">
+                New Password
+              </label>
 
               <input
                 id="password"
@@ -88,7 +95,7 @@ const ResetPassword = () => {
 
             <div className="input-group">
               <label htmlFor="confirmPassword">
-                Confirm Password
+                Confirm New Password
               </label>
 
               <input
@@ -104,26 +111,29 @@ const ResetPassword = () => {
             </div>
 
             <p className="password-requirements">
-              Make sure your new password is strong and secure.
+              Password must be at least 8 characters and contain
+              letters, numbers, and a special character.
             </p>
 
             <button
               type="submit"
-              className="reset-password-btn"
+              className="set-password-btn"
               disabled={loading}
             >
-              {loading ? "Resetting..." : "Reset Password"}
+              {loading ? "Saving..." : "Save New Password"}
             </button>
+
           </form>
 
-          <p className="reset-password-footer">
+          <p className="set-password-footer">
             Remember your password?{" "}
             <Link to="/login">Login</Link>
           </p>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default ResetPassword;
+export default SetNewPassword;
