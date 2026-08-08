@@ -128,6 +128,22 @@
     }
 }
 
+.forgot-password-link {
+    text-align: right;
+    margin: -5px 0 20px;
+}
+
+.forgot-password-link a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forgot-password-link a:hover {
+    text-decoration: underline;
+}
+
 /* Mobile */
 
 @media (max-width: 480px) {
@@ -193,3 +209,4 @@
         font-size: 13px;
     }
 }
+

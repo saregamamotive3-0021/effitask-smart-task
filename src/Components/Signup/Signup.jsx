@@ -230,11 +230,6 @@ const Signup = () => {
           <p className="login-text">
             Already have an account? <Link to="/login">Login</Link>
           </p>
-
-          <p className="login-text">
-            Forgot your password?{" "}
-            <Link to="/forgot-password">Reset Password</Link>
-          </p>
         </form>
       </div>
     </div>
