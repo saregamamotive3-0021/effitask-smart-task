@@ -14,57 +14,61 @@ import Signup from "./Components/Signup/Signup";
 import Context from "./Context/Context";
 import Footer from "./Components/Footer/Footer";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 
 function App() {
-    return (
-        <>
-            <Routes>
-                {/* HOME PAGE */}
-                  <Route path="/login" element={<Login/>}/>
-                <Route
-                    path="/"
-                    element={
-                        <>
-                            <Navbar />
-                            <Hero />
-                            <About title="Manage Tasks With EffiTask" />
-                            <Dailystreak />
-                            <Banner />
-                            <Subscrip />
-                            <Footer/>
-                        </>
-                    }
-                />
+  return (
+    <>
+      <Routes>
+        {/* HOME PAGE */}
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <Hero />
+              <About title="Manage Tasks With EffiTask" />
+              <Dailystreak />
+              <Banner />
+              <Subscrip />
+              <Footer />
+            </>
+          }
+        />
 
-                {/* FORM PAGE */}
-                {/* <Route path="/form" element={<Form />} /> */}
-                {/* <Route path="/showtasks" element={<Showtasks />} /> */}
-             
+        {/* FORM PAGE */}
+        {/* <Route path="/form" element={<Form />} /> */}
+        {/* <Route path="/showtasks" element={<Showtasks />} /> */}
 
-                <Route
-                    path="/addtasks"
-                    element={
-                        <Context>
-                            <Form />
-                        </Context>
-                    }
-                />
+        <Route
+          path="/addtasks"
+          element={
+            <Context>
+              <Form />
+            </Context>
+          }
+        />
 
-                 <Route
-                    path="/showtasks"
-                    element={
-                        <Context>
-                            <Showtasks/>
-                        </Context>
-                    }
-                />
+        <Route
+          path="/showtasks"
+          element={
+            <Context>
+              <Showtasks />
+            </Context>
+          }
+        />
 
-                 <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
-                <Route path="/signup" element={<Signup />} />
-               
-            </Routes>
-        </>
-    );
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
+
+        <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
