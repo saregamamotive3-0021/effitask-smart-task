@@ -1,100 +1,129 @@
 import React, { useState } from "react";
-import "./ForgotPassword.css";
-import { Link } from "react-router-dom";
+import "./ResetPassword.css";
+import { Link, useSearchParams } from "react-router-dom";
 
-const ForgotPassword = () => {
-    const [email, setEmail] = useState("");
-    const [loading, setLoading] = useState(false);
+const ResetPassword = () => {
+  const [searchParams] = useSearchParams();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const token = searchParams.get("token");
 
-        if (!email) {
-            alert("Please enter your email");
-            return;
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!password || !confirmPassword) {
+      alert("Please enter both passwords");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    if (!token) {
+      alert("Invalid or missing reset token");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "https://effitask-smart-task.onrender.com/reset-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token,
+            password,
+          }),
         }
+      );
 
-        try {
-            setLoading(true);
+      const data = await response.json();
 
-            const response = await fetch(
-                "https://effitask-smart-task.onrender.com/forgot-password",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ email }),
-                }
-            );
+      alert(data.message);
 
-            const data = await response.json();
+      if (response.ok) {
+        setPassword("");
+        setConfirmPassword("");
+      }
+    } catch (error) {
+      console.error("Reset password error:", error);
+      alert("Error resetting password");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            alert(data.message);
+  return (
+    <div className="reset-password-page">
+      <div className="reset-password-container">
+        <div className="reset-password-card">
+          <h2>Reset Password</h2>
 
-            if (response.ok) {
-                setEmail("");
-            }
-        } catch (error) {
-            console.error(error);
-            alert("Error sending reset link");
-        } finally {
-            setLoading(false);
-        }
-    };
+          <p className="reset-password-description">
+            Enter your new password below.
+          </p>
 
-    return (
-        <div className="forgot-password-page">
-            <div className="forgot-password-container">
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label htmlFor="password">New Password</label>
 
-                <div className="forgot-password-card">
-
-                    <h2>Forgot Password?</h2>
-
-                    <p className="forgot-password-description">
-                        Enter your registered email address and
-                        we'll send you a password reset link.
-                    </p>
-
-                    <form onSubmit={handleSubmit}>
-
-                        <div className="input-group">
-                            <label>Email</label>
-
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                value={email}
-                                onChange={(e) =>
-                                    setEmail(e.target.value)
-                                }
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="forgot-password-btn"
-                            disabled={loading}
-                        >
-                            {loading
-                                ? "Sending..."
-                                : "Send Reset Link"}
-                        </button>
-
-                    </form>
-
-                    <p className="forgot-password-footer">
-                        Remember your password?{" "}
-                        <Link to="/login">
-                            Login
-                        </Link>
-                    </p>
-
-                </div>
-
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
+
+            <div className="input-group">
+              <label htmlFor="confirmPassword">
+                Confirm Password
+              </label>
+
+              <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirm new password"
+                value={confirmPassword}
+                onChange={(e) =>
+                  setConfirmPassword(e.target.value)
+                }
+                required
+              />
+            </div>
+
+            <p className="password-requirements">
+              Make sure your new password is strong and secure.
+            </p>
+
+            <button
+              type="submit"
+              className="reset-password-btn"
+              disabled={loading}
+            >
+              {loading ? "Resetting..." : "Reset Password"}
+            </button>
+          </form>
+
+          <p className="reset-password-footer">
+            Remember your password?{" "}
+            <Link to="/login">Login</Link>
+          </p>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export default ForgotPassword;
+export default ResetPassword;
