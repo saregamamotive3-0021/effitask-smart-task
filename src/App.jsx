@@ -23,6 +23,8 @@ function App() {
       <Routes>
         {/* HOME PAGE */}
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/"
           element={
@@ -60,9 +62,6 @@ function App() {
           }
         />
 
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
-
-        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/signup" element={<Signup />} />
