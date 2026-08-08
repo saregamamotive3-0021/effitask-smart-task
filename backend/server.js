@@ -484,8 +484,8 @@ app.post("/reset-password", async (req, res) => {
   }
 
   // Same password rules as signup
-  const passwordRegex =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+ const passwordRegex =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
   if (!passwordRegex.test(password)) {
     return res.status(400).json({

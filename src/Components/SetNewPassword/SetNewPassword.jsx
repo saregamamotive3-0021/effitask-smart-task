@@ -57,6 +57,7 @@ const SetNewPassword = () => {
       alert("Password changed successfully!");
 
       navigate("/login");
+
     } catch (error) {
       console.error("Reset password error:", error);
       alert("Something went wrong. Please try again.");
