@@ -9,13 +9,18 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) {
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
       alert("Please enter your email");
       return;
     }
 
     try {
       setLoading(true);
+
+      console.log("1. Sending request...");
+      console.log("Email:", trimmedEmail);
 
       const response = await fetch(
         "https://effitask-smart-task.onrender.com/forgot-password",
@@ -24,20 +29,43 @@ const ForgotPassword = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({
+            email: trimmedEmail,
+          }),
         }
       );
 
-      const data = await response.json();
+      console.log("2. Response received");
+      console.log("Status:", response.status);
 
-      alert(data.message);
+      const text = await response.text();
 
-      if (response.ok) {
-        setEmail("");
+      console.log("3. Backend response:", text);
+
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        alert("Server returned an invalid response.");
+        return;
       }
+
+      if (!response.ok) {
+        alert(data.message || "Could not send reset link.");
+        return;
+      }
+
+      alert(data.message || "Reset link sent successfully!");
+
+      setEmail("");
+
     } catch (error) {
       console.error("Forgot password error:", error);
-      alert("Error sending reset link");
+
+      alert(
+        "Unable to connect to the server. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -47,6 +75,7 @@ const ForgotPassword = () => {
     <div className="forgot-password-page">
       <div className="forgot-password-container">
         <div className="forgot-password-card">
+
           <h2>Forgot Password?</h2>
 
           <p className="forgot-password-description">
@@ -55,8 +84,11 @@ const ForgotPassword = () => {
           </p>
 
           <form onSubmit={handleSubmit}>
+
             <div className="input-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">
+                Email
+              </label>
 
               <input
                 id="email"
@@ -73,14 +105,20 @@ const ForgotPassword = () => {
               className="forgot-password-btn"
               disabled={loading}
             >
-              {loading ? "Sending..." : "Send Reset Link"}
+              {loading
+                ? "Sending..."
+                : "Send Reset Link"}
             </button>
+
           </form>
 
           <p className="forgot-password-footer">
             Remember your password?{" "}
-            <Link to="/login">Login</Link>
+            <Link to="/login">
+              Login
+            </Link>
           </p>
+
         </div>
       </div>
     </div>
