@@ -156,7 +156,7 @@ const ShowTasks = () => {
 
   const deleteTask = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to permanently delete this task?",
+      "Are you sure you want to delete this task?",
     );
 
     if (!confirmDelete) return;
