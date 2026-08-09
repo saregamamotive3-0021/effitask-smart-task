@@ -14,8 +14,6 @@ import Signup from "./Components/Signup/Signup";
 import Context from "./Context/Context";
 import Footer from "./Components/Footer/Footer";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
-import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
-import SetNewPassword from "./Components/SetNewPassword/SetNewPassword";
 
 function App() {
   return (
@@ -23,9 +21,7 @@ function App() {
       <Routes>
         {/* HOME PAGE */}
         <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
 
-        <Route path="/reset-password" element={<SetNewPassword />} />
 
         <Route
           path="/"
