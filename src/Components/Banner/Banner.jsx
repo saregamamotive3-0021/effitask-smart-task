@@ -15,7 +15,7 @@ const Banner = () => {
 
                     <p className="banner-subheading">
                         Organize tasks, prioritize important work, and track
-                        progress with intuitive analytics designed to boost
+                        progress with interactive analytics designed to boost
                         productivity.
                     </p>
 
@@ -84,8 +84,8 @@ const Banner = () => {
                     className={`feature-card ${activeCard === 3 ? "active" : ""}`}
                     onClick={() => setActiveCard(3)}
                 >
-                    <div className="feature-icon">★</div>
-                    <h3>Priority Tasks</h3>
+                    <div className="feature-icon">🏳️</div>
+                    <h3>Important Tasks</h3>
                     <p>Highlight important tasks and focus on what matters.</p>
                 </div>
             </div>
