@@ -104,7 +104,7 @@ const Navbar = () => {
           <Link to="/showtasks"   onClick={() => setMenuOpen(false)}>Task Tracker</Link>
         </li>
         <li className="nav-list">
-          <Link to="/addtasks"   onClick={() => setMenuOpen(false)}>Add Tasks</Link>
+          <Link to="/form"   onClick={() => setMenuOpen(false)}>Add Tasks</Link>
         </li>
             <li
         className="nav-list"
