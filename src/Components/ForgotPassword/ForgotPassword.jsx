@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./ForgotPassword.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +61,9 @@ const ForgotPassword = () => {
       alert(data.message || "Reset link sent successfully!");
 
       setEmail("");
+
+      // Redirect to Set New Password page
+      navigate("/set-new-password");
 
     } catch (error) {
       console.error("Forgot password error:", error);
@@ -126,3 +131,4 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+
