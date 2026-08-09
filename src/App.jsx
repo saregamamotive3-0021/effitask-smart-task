@@ -17,7 +17,7 @@ import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 
 function App() {
   return (
-    
+    <>
       <Routes>
         {/* HOME PAGE */}
         <Route path="/login" element={<Login />} />
@@ -64,6 +64,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
+      </>
   );
 }
 
