@@ -4,7 +4,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Form.css";
 
 const Form = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Safely get user from localStorage
+  const storedUser = localStorage.getItem("user");
+
+  let user = null;
+
+  try {
+    user = storedUser ? JSON.parse(storedUser) : null;
+  } catch (error) {
+    console.error("Invalid user data in localStorage:", error);
+  }
 
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
@@ -28,6 +37,7 @@ const Form = () => {
     };
 
     setTasks([...tasks, newTask]);
+
     setInput("");
     setStartDate(null);
     setEndDate(null);
@@ -43,7 +53,7 @@ const Form = () => {
             "from",
             task.priority,
             "to",
-            !task.priority,
+            !task.priority
           );
 
           return {
@@ -62,11 +72,17 @@ const Form = () => {
   };
 
   const cancelTask = (id) => {
-    setTasks(tasks.filter((task) => task.id != id));
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const saveTask = async (id) => {
     const task = tasks.find((t) => t.id === id);
+
+    if (!task) {
+      console.error("Task not found");
+      return;
+    }
+
     const formatDate = (date) => {
       if (!date) return null;
 
@@ -80,8 +96,6 @@ const Form = () => {
     try {
       console.log("Saving task:", task);
       console.log("task.startDate =", task.startDate);
-
-      // Example backend call
 
       const response = await fetch(
         "https://effitask-smart-task.onrender.com/addTask",
@@ -97,7 +111,7 @@ const Form = () => {
             endDate: formatDate(task.endDate),
             userId: user?.id,
           }),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -105,18 +119,23 @@ const Form = () => {
       }
 
       setTasks((prevTasks) =>
-        prevTasks.map((t) => (t.id === id ? { ...t, saved: true } : t)),
+        prevTasks.map((t) =>
+          t.id === id
+            ? { ...t, saved: true }
+            : t
+        )
       );
 
       alert("Task Saved Successfully");
     } catch (error) {
-      console.error(error);
+      console.error("Save task error:", error);
       alert("Error saving task");
     }
   };
 
   const startHandle = (date) => {
     setStartDate(date);
+
     if (EndDate && date > EndDate) {
       setEndDate(null);
     }
@@ -132,109 +151,145 @@ const Form = () => {
   };
 
   return (
-    <div className="Tasks-Form">
-      {/* ✅ Input field */}
+    <div className="top-input">
 
-      <div className="top-input">
-        <h1 className="heading">Add Tasks</h1>
+      {/* Input field */}
 
-        <div className="input-box">
-          <h2 className="sub-heading">Enter Task</h2>
+      <h1 className="heading">
+        Add Tasks
+      </h1>
 
-          <input
-            type="text"
-            placeholder="Enter your task"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="input1"
-          />
+      <div className="input-box">
 
-          <div className="date-row">
-            <div className="date-field">
-              <label>Start Date</label>
+        <h2 className="sub-heading">
+          Enter Task
+        </h2>
 
-              <DatePicker
-                selected={startDate}
-                onChange={startHandle}
-                selectsStart
-                startDate={startDate}
-                endDate={EndDate}
-                minDate={new Date()}
-                placeholderText="Select start date"
-                dateFormat="dd/MM/yyyy"
-              />
-            </div>
+        <input
+          type="text"
+          placeholder="Enter your task"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="input1"
+        />
 
-            <div className="date-field">
-              <label>End Date</label>
+        <div className="date-row">
 
-              <DatePicker
-                selected={EndDate}
-                onChange={EndHandle}
-                selectsEnd
-                startDate={startDate}
-                endDate={EndDate}
-                minDate={startDate || new Date()}
-                placeholderText="Select end date"
-                dateFormat="dd/MM/yyyy"
-              />
-            </div>
+          <div className="date-field">
+            <label>
+              Start Date
+            </label>
+
+            <DatePicker
+              selected={startDate}
+              onChange={startHandle}
+              selectsStart
+              startDate={startDate}
+              endDate={EndDate}
+              minDate={new Date()}
+              placeholderText="Select start date"
+              dateFormat="dd/MM/yyyy"
+            />
           </div>
 
-          <button onClick={addTask} className="addTasks">
-            Add Task
-          </button>
+          <div className="date-field">
+            <label>
+              End Date
+            </label>
+
+            <DatePicker
+              selected={EndDate}
+              onChange={EndHandle}
+              selectsEnd
+              startDate={startDate}
+              endDate={EndDate}
+              minDate={startDate || new Date()}
+              placeholderText="Select end date"
+              dateFormat="dd/MM/yyyy"
+            />
+          </div>
+
         </div>
 
-        {/* ✅ Display tasks */}
-        <ul className="task-priority">
-          {tasks.map((task) => (
-            <li key={task.id}>
-              <div className="task-card-top">
-                <div className="star">
-                  <button
-                    className="StarPriority"
-                    type="button"
-                    onClick={() => colorChange(task.id)}
-                    style={{
-                      color: task.priority ? "gold" : "#cbd5e1",
-                      background: "none",
-                      border: "none",
-                      fontSize: "28px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    ★
-                  </button>
+        <button
+          onClick={addTask}
+          className="addTasks"
+          type="button"
+        >
+          Add Task
+        </button>
 
-                  <span className="priority-text">
-                    {task.priority ? "Important" : "Not Important"}
-                  </span>
-                </div>
+      </div>
 
-                <h3>{task.text}</h3>
+      {/* Display tasks */}
+
+      <ul className="task-priority">
+
+        {tasks.map((task) => (
+          <li key={task.id}>
+
+            <div className="task-card-top">
+
+              <div className="star">
+
+                <button
+                  className="StarPriority"
+                  type="button"
+                  onClick={() => colorChange(task.id)}
+                  style={{
+                    color: task.priority
+                      ? "gold"
+                      : "#cbd5e1",
+                    background: "none",
+                    border: "none",
+                    fontSize: "28px",
+                    cursor: "pointer",
+                  }}
+                >
+                  ★
+                </button>
+
+                <span className="priority-text">
+                  {task.priority
+                    ? "Important"
+                    : "Not Important"}
+                </span>
+
               </div>
 
-              <button
-                onClick={() => saveTask(task.id)}
-                disabled={task.saved}
-                className="savetask"
-              >
-                {task.saved ? "Saved" : "Save"}
-              </button>
+              <h3>
+                {task.text}
+              </h3>
 
-              <button
-                className="cancelTask"
-                onClick={() => cancelTask(task.id)}
-              >
-                Cancel
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+            </div>
+
+            <button
+              onClick={() => saveTask(task.id)}
+              disabled={task.saved}
+              className="savetask"
+              type="button"
+            >
+              {task.saved
+                ? "Saved"
+                : "Save"}
+            </button>
+
+            <button
+              className="cancelTask"
+              onClick={() => cancelTask(task.id)}
+              type="button"
+            >
+              Cancel
+            </button>
+
+          </li>
+        ))}
+
+      </ul>
+
     </div>
   );
 };
 
 export default Form;
+
