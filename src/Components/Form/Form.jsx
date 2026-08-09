@@ -204,7 +204,7 @@ const Form = () => {
                       cursor: "pointer",
                     }}
                   >
-                    🏴
+                    ⚑
                   </button>
 
                   <span className="priority-text">
