@@ -137,7 +137,6 @@ app.delete("/delete/:id", (req, res) => {
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
 
-  // Email validation
   const emailRegex =
     /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|rediffmail\.com)$/i;
 
@@ -147,7 +146,6 @@ app.post("/signup", async (req, res) => {
     });
   }
 
-  // Password validation (NEW)
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
@@ -161,20 +159,40 @@ app.post("/signup", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const sql = "INSERT INTO LOGIN (name, email, password) VALUES (?, ?, ?)";
+    const sql =
+      "INSERT INTO LOGIN (name, email, password) VALUES (?, ?, ?)";
 
-    connection.query(sql, [name, email, hashedPassword], (err) => {
-      if (err) {
-        return res.status(500).json({
-          message: err.message,
+    connection.query(
+      sql,
+      [name, email, hashedPassword],
+      (err, result) => {
+
+        if (err) {
+          console.error(err);
+
+          return res.status(500).json({
+            message: err.message,
+          });
+        }
+
+        console.log("New user ID:", result.insertId);
+
+        res.status(201).json({
+          success: true,
+          message: "User registered successfully",
+
+          user: {
+            id: result.insertId,
+            name: name,
+            email: email,
+          },
         });
       }
+    );
 
-      res.status(201).json({
-        message: "User registered successfully",
-      });
-    });
   } catch (err) {
+    console.error(err);
+
     res.status(500).json({
       message: "Hashing error",
     });
