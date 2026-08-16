@@ -128,24 +128,7 @@
     }
 }
 
-.forgot-password-link {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    text-align: right;
-    margin: 10px 0 15px;
-}
 
-.forgot-password-link a {
-    color: #008f83 !important;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.forgot-password-link a:hover {
-    text-decoration: underline;
-}
 
 /* Mobile */
 

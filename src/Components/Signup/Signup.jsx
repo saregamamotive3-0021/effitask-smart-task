@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -57,14 +57,17 @@ const Signup = () => {
         },
       );
 
-     const data = await response.json();
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("isLoggedIn", "true");
 
-if (response.ok) {
-  alert(data.message);
-  navigate("/");
-} else {
-  alert(data.message);
-}
+        alert(data.message);
+        navigate("/");
+        window.location.reload();
+      } else {
+        alert(data.message);
+      }
     } catch (error) {
       console.error(error);
       alert("Error creating account");
