@@ -206,7 +206,10 @@ app.post("/login", (req, res) => {
 
   connection.query(sql, [email], async (err, result) => {
     if (err) {
-      return res.json({ success: false, message: "Database error" });
+      return res.json({
+        success: false,
+        message: "Database error",
+      });
     }
 
     if (result.length === 0) {
@@ -227,9 +230,15 @@ app.post("/login", (req, res) => {
       });
     }
 
+    const safeUser = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+
     return res.json({
       success: true,
-      user,
+      user: safeUser,
     });
   });
 });

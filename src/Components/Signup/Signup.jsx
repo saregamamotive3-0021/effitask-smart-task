@@ -9,11 +9,11 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-});
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleChange = (e) => {
     setFormData({
