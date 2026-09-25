@@ -12,6 +12,8 @@ const Form = () => {
   const [startDate, setStartDate] = useState(null);
   const [EndDate, setEndDate] = useState(null);
 
+  const [savingTaskId, setSavingTaskId] = useState(null);
+
   const addTask = () => {
     if (input.trim() === "") {
       alert("Please enter a task");
@@ -66,7 +68,18 @@ const Form = () => {
   };
 
   const saveTask = async (id) => {
+    if (savingTaskId === id) {
+      return;
+    }
+
     const task = tasks.find((t) => t.id === id);
+
+    if (!task || task.saved) {
+      return;
+    }
+
+    setSavingTaskId(id);
+
     const formatDate = (date) => {
       if (!date) return null;
 
@@ -78,11 +91,6 @@ const Form = () => {
     };
 
     try {
-      console.log("Saving task:", task);
-      console.log("task.startDate =", task.startDate);
-
-      // Example backend call
-
       const response = await fetch(
         "https://effitask-smart-task.onrender.com/addTask",
         {
@@ -112,6 +120,8 @@ const Form = () => {
     } catch (error) {
       console.error(error);
       alert("Error saving task");
+    } finally {
+      setSavingTaskId(null);
     }
   };
 
@@ -217,10 +227,14 @@ const Form = () => {
 
               <button
                 onClick={() => saveTask(task.id)}
-                disabled={task.saved}
+                disabled={task.saved || savingTaskId === task.id}
                 className="savetask"
               >
-                {task.saved ? "Saved" : "Save"}
+                {task.saved
+                  ? "Saved"
+                  : savingTaskId === task.id
+                    ? "Saving..."
+                    : "Save"}
               </button>
 
               <button
