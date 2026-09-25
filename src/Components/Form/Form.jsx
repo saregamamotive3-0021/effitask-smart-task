@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,  { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Form.css";
@@ -13,6 +13,7 @@ const Form = () => {
   const [EndDate, setEndDate] = useState(null);
 
   const [savingTaskId, setSavingTaskId] = useState(null);
+  const savingTasks = useRef(new Set());
 
   const addTask = () => {
     if (input.trim() === "") {
@@ -68,7 +69,7 @@ const Form = () => {
   };
 
   const saveTask = async (id) => {
-    if (savingTaskId === id) {
+    if (savingTasks.current.has(id)) {
       return;
     }
 
@@ -78,6 +79,7 @@ const Form = () => {
       return;
     }
 
+    savingTasks.current.add(id);
     setSavingTaskId(id);
 
     const formatDate = (date) => {
@@ -121,12 +123,14 @@ const Form = () => {
       console.error(error);
       alert("Error saving task");
     } finally {
+      savingTasks.current.delete(id);
       setSavingTaskId(null);
     }
   };
 
   const startHandle = (date) => {
     setStartDate(date);
+
     if (EndDate && date > EndDate) {
       setEndDate(null);
     }
@@ -143,7 +147,6 @@ const Form = () => {
 
   return (
     <div className="Tasks-Form">
-      {/* ✅ Input field */}
 
       <div className="top-input">
         <h1 className="heading">Add Tasks</h1>
